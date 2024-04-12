@@ -1,0 +1,18 @@
+<div class="container" style="background-color: white;">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+	<li [ngbNavItem]="1">
+		<button ngbNavLink class="custom-nav-link">Dashboard</button>
+		<ng-template ngbNavContent>
+      <app-dashboard></app-dashboard> 
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="2">
+		<button ngbNavLink class="custom-nav-link">Live Dashboard</button>
+		<ng-template ngbNavContent>
+			<app-live-dashboard></app-live-dashboard> 
+		</ng-template>
+	</li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
