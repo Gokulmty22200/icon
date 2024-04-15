@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/guest/login',
         pathMatch: 'full'
       },
       
@@ -33,11 +33,29 @@ const routes: Routes = [
         loadComponent: () => import('./demo/sample-page/sample-page.component')
       },
       {
+        path: 'mri-performance',
+        loadComponent: () => import('./mri-performance/mri-performance.component').then(
+          (mod) => mod.MriPerformanceComponent
+        )
+      },
+      {
+        path: 'mri-qa',
+        loadComponent: () => import('./mri-qa/mri-qa.component').then(
+          (mod) => mod.MriQaComponent
+        )
+      },
+      {
         path: 'talk-to-mri',
         loadComponent: () => import('./talk-to-mri/chat-page/chat-page.component').then(
           (mod) => mod.ChatPageComponent
         )
       },
+      {
+        path: 'audit-trial',
+        loadComponent: () => import('./audit-trial/audit-trial.component').then(
+          (mod) => mod.AuditTrialComponent
+        )
+      }
     ]
   },
   {
@@ -63,7 +81,7 @@ const routes: Routes = [
   
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/guest/login',
   }
 ];
 

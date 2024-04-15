@@ -1,0 +1,139 @@
+[
+    {
+      "Name": "Geometric accuracy (mm) - Localizer",
+      "Observations": "3 successes (37.5%), 5 fails (62.5%)",
+      "Actions": "Re-calibrate scanner geometry to improve accuracy and reduce failures. Consider phantom testing to verify the correction.",
+      "Components": "Scanner gantry",
+      "Urgency": "7 days",
+      "Impact": "High"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 1 mm with vertical dimension",
+      "Observations": "8 successes (100%)",
+      "Actions": "No action necessary. Passes quality control criteria.",
+      "Components": "Not applicable",
+      "Urgency": "Not applicable",
+      "Impact": "Not applicable"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 1 mm with horizontal dimension",
+      "Observations": "7 successes (87.5%), 1 fail (12.5%)",
+      "Actions": "Investigate cause of the single outlier. Recalibrate if necessary.",
+      "Components": "Scanner gantry",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 5mm with vertical dimension",
+      "Observations": "6 successes (75%), 2 fails (25%)",
+      "Actions": "Investigate cause of outliers and perform recalibration if necessary.",
+      "Components": "Scanner gantry",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 5mm with horizontal dimension",
+      "Observations": "5 successes (62.5%), 3 fails (37.5%)",
+      "Actions": "More frequent monitoring and potential recalibration needed to ensure consistent accuracy.",
+      "Components": "Scanner gantry",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 5mm with diagonal dimension with upper left and lower right",
+      "Observations": "7 successes (87.5%), 1 fail (12.5%)",
+      "Actions": "Investigate cause of the single outlier and perform recalibration if necessary.",
+      "Components": "Scanner gantry",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Geometric accuracy (mm) - Slice 5mm with diagonal dimension with upper right and lower left",
+      "Observations": "8 successes (100%)",
+      "Actions": "No action necessary. Passes quality control criteria.",
+      "Components": "Not applicable",
+      "Urgency": "Not applicable",
+      "Impact": "Not applicable"
+    },
+    {
+      "Name": "High-contrast spatial resolution (mm)",
+      "Observations": "All results within acceptable range (100%)",
+      "Actions": "No action necessary. Passes quality control criteria.",
+      "Components": "Not applicable",
+      "Urgency": "Not applicable",
+      "Impact": "Not applicable"
+    },
+    {
+      "Name": "Slice thickness accuracy (mm) - Test 1",
+      "Observations": "4 successes (50%), 4 fails (50%)",
+      "Actions": "Investigate cause of thickness variations and perform maintenance on the slice thickness control system.",
+      "Components": "Slice thickness control system",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Slice thickness accuracy (mm) - Test 2",
+      "Observations": "7 successes (87.5%), 1 fail (12.5%)",
+      "Actions": "Monitor slice thickness for consistency. Perform maintenance if necessary.",
+      "Components": "Slice thickness control system",
+      "Urgency": "90 days",
+      "Impact": "Low"
+    },
+    {
+      "Name": "Slice position accuracy (mm) - Test 1 with bias in superior slice",
+      "Observations": "4 successes (50%), 4 fails (50%)",
+      "Actions": "Investigate source of slice position errors and perform corrections.",
+      "Components": "Gradient system",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Slice position accuracy (mm) - Test 1 with bias in inferior slice",
+      "Observations": "5 successes (62.5%), 3 fails (37.5%)",
+      "Actions": "Investigate source of slice position errors and perform corrections.",
+      "Components": "Gradient system",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Slice position accuracy (mm) - Test 2 with bias in superior slice",
+      "Observations": "5 successes (62.5%), 3 fails (37.5%)",
+      "Actions": "Investigate source of slice position errors and perform corrections.",
+      "Components": "Gradient system",
+      "Urgency": "30 days",
+      "Impact": "Moderate"
+    },
+    {
+      "Name": "Slice position accuracy (mm) - Test 2 with bias in inferior slice",
+      "Observations": "6 successes (75%), 2 fails (25%)",
+      "Actions": "Monitor slice position accuracy for consistency. Perform corrections if necessary.",
+      "Components": "Gradient system",
+      "Urgency": "90 days",
+      "Impact": "Low"
+    },
+    {
+      "Name": "Image intensity Uniformity (%) - Test 1 & Test 2",
+      "Observations": "All results within acceptable range (100%)",
+      "Actions": "No action necessary. Passes quality control criteria.",
+      "Components": "Not applicable",
+      "Urgency": "Not applicable",
+      "Impact": "Not applicable"
+    },
+    {
+      "Name": "Percent signal ghosting (%) - Test 1 & Test 2",
+      "Observations": "All results within acceptable range (100%)",
+      "Actions": "No action necessary. Passes quality control criteria.",
+      "Components": "Not applicable",
+      "Urgency": "Not applicable",
+      "Impact": "Not applicable"
+    },
+    {
+      "Name": "Low-contrast object detectability (contrast level) - Test 1 & Test 2",
+      "Observations": "Some results fall below the threshold (7). Investigate further.",
+      "Actions": "Investigate cause of low contrast detectability in some scans. Potential issues include coil problems or pulse sequence optimization.",
+      "Components": "RF coil or pulse sequence optimization",
+      "Urgency": "7 days",
+      "Impact": "Medium"
+    }
+  ]
+  

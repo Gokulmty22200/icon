@@ -16,6 +16,21 @@ export const MONTHS = {
   export type Month = keyof typeof MONTHS;
 
   export const YEARS = {
-    2023: 2022,
+    2023: 2023,
     2024: 2024
+  }
+
+  export const SCANTYPE = {
+    ABDOMEN: 'Abdomen',
+    ANGIO: 'Angio',
+    CHEST: 'Chest',
+    ELBOW: 'Elbow',
+    FOOT: 'Foot',
+    HAND: 'Hand',
+    HEAD: 'Head',
+    KNEE: 'Knee',
+    PELVIS: 'Pelvis',
+    SHOULDER: 'Shoulder',
+    SPINE: 'Spine',
+    WRIST: 'Wrist'
   }

@@ -1,0 +1,74 @@
+<div class="container">
+    <h1>MRI Quality Assessment</h1>
+    <hr class="my-1 bg-secondary">
+
+<div class="container">
+
+<p>9 Different tests are performed 8 times each, the below table contains the results.</p>
+
+     <div class="table-responsive table" style="height: 400px; overflow-y: auto;">
+       <table class="table table-bordered table-striped">
+         <thead>
+           <tr class="text-muted">
+                <th>Test Name</th>
+                <th>Test Type</th>
+                <th>Result 1</th>
+                <th>Result 2</th>
+                <th>Result 3</th>
+                <th>Result 4</th>
+                <th>Result 5</th>
+                <th>Result 6</th>
+                <th>Result 7</th>
+                <th>Result 8</th>
+           </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let row of qaTestData">
+                <td>{{ row.testName }}</td>
+                <td>{{ row.testType }}</td>
+                <td class="center-align">{{ row.result1 }}</td>
+                <td class="center-align">{{ row.result2 }}</td>
+                <td class="center-align">{{ row.result3 }}</td>
+                <td class="center-align">{{ row.result4 }}</td>
+                <td class="center-align">{{ row.result5 }}</td>
+                <td class="center-align">{{ row.result6 }}</td>
+                <td class="center-align">{{ row.result7 }}</td>
+                <td class="center-align">{{ row.result8 }}</td>
+              </tr>
+         </tbody>
+       </table>
+     </div>
+     <p>MRI Annual Quality Assessment Data collected from </p>
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3047180/" target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3047180/</a>
+
+     <hr class="my-4 seperation bg-secondary">
+     <h4>Observations, Actions and Recommendations</h4>
+
+     <div class="table-responsive table" style="height: 600px; overflow-y: auto;">
+       <table class="table table-bordered table-striped">
+         <thead>
+           <tr class="text-muted">
+                <th>Name</th>
+                <th>Observations</th>
+                <th>Actions</th>
+                <th>Components</th>
+                <th>Urgency (Approx.)</th>
+                <th>Impact</th>
+           </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let row of qaOutputData">
+                <td>{{ row.Name }}</td>
+                <td>{{ row.Observations }}</td>
+                <td>{{ row.Actions }}</td>
+                <td>{{ row.Components }}</td>
+                <td>{{ row.Urgency}}</td>
+                <td>{{ row.Impact }}</td>
+              </tr>
+         </tbody>
+       </table>
+     </div>
+     <hr class="my-4 seperation bg-secondary">
+
+ </div>      
+</div>

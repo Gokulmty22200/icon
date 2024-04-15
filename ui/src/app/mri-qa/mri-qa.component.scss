@@ -1,0 +1,48 @@
+.container {
+    width: 100%;
+    margin: auto;
+    overflow: auto;
+    background-color: white;
+ }
+ 
+ h1 {
+    font-size: 3em;
+    text-align: center;
+    padding: 20px;
+    color: #673ab7;
+ }
+ 
+ h2 {
+    font-size: 2em;
+    color: #333;
+    text-align-last: center;
+ }
+
+ th {
+   color: #673ab7 !important;
+ }
+ 
+ .center-align {
+   text-align: center;
+ }
+ 
+ h4 {
+    color: #333;
+    margin-bottom: 15px;
+ }
+
+ p {
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 25px;
+    font-weight: 500;
+    margin-bottom: 15px;
+ }
+
+ .table{
+    margin-bottom: 25px;
+ }
+
+ .seperation{
+   border-width: 5px;
+ }

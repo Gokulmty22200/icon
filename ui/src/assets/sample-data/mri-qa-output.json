@@ -1,0 +1,72 @@
+[{
+    "Name": "Geometric accuracy (mm)",
+    "Observations": "Geometric accuracy (Localizer): 5 fails, 3 success\nGeometric accuracy (Slice 1 mm with vertical dimension): 3 fails, 5 success\nGeometric accuracy (Slice 1 mm with horizontal dimension): 2 fails, 6 success\nGeometric accuracy (Slice 5mm with vertical dimension): 3 fails, 5 success\nGeometric accuracy (Slice 5mm with horizontal dimension): 4 fails, 4 success\nGeometric accuracy (Slice 5mm with diagonal dimension with upper left and lower right): 4 fails, 4 success\nGeometric accuracy (Slice 5mm with diagonal dimension with upper right and lower left): 3 fails, 5 success\n**% success rate: 57.14**",
+    "Actions": "Inspect the gradient coils for any loose connections or damage. Check the scanner room for any sources of vibration or interference. Perform a system calibration to ensure that the gradients are operating within specifications.",
+    "Components": "**Gradient coils**",
+    "Urgency (Approx.)": "7 days",
+    "Impact": "Medium"
+  },
+  {
+    "Name": "High-contrast spatial resolution (mm)",
+    "Observations": "Test 1 with horizontal resolution: 8 success, 0 fails\nTest 1 with vertical resolution: 8 success, 0 fails\nTest 2 with horizontal resolution: 8 success, 0 fails\nTest 2 with vertical resolution: 8 success, 0 fails\n**% success rate: 100**",
+    "Actions": "N/A",
+    "Components": "**Not applicable**",
+    "Urgency (Approx.)": "N/A",
+    "Impact": "N/A"
+  },
+  {
+    "Name": "Slice thickness accuracy (mm)",
+    "Observations": "Test 1: 7 fails, 1 success\nTest 2: 6 fails, 2 success\n**% success rate: 14.29**",
+    "Actions": "Inspect the Z-axis drive mechanism for any mechanical issues. Check the scanner software for any updates or patches that may improve slice thickness accuracy. Perform a system calibration to ensure that the Z-axis is operating within specifications.",
+    "Components": "**Z-axis drive mechanism**",
+    "Urgency (Approx.)": "Immediate",
+    "Impact": "High"
+  },
+  {
+    "Name": "Slice position accuracy (mm)",
+    "Observations": "Test 1 with bias in superior slice: 6 fails, 2 success\nTest 1 with bias in inferior slice: 5 fails, 3 success\nTest 2 with bias in superior slice: 6 fails, 2 success\nTest 2 with bias in inferior slice: 6 fails, 2 success\n**% success rate: 25**",
+    "Actions": "Inspect the gradient coils and Z-axis drive mechanism for any loose connections or damage. Check the scanner software for any updates or patches that may improve slice position accuracy. Perform a system calibration to ensure that the gradients and Z-axis are operating within specifications.",
+    "Components": "**Gradient coils**, **Z-axis drive mechanism**",
+    "Urgency (Approx.)": "Immediate",
+    "Impact": "Critical"
+  },
+  {
+    "Name": "Image intensity Uniformity (%)",
+    "Observations": "Test 1: 8 success, 0 fails\nTest 2: 8 success, 0 fails\n**% success rate: 100**",
+    "Actions": "N/A",
+    "Components": "**Not applicable**",
+    "Urgency (Approx.)": "N/A",
+    "Impact": "N/A"
+  },
+  {
+    "Name": "Percent signal ghosting (%)",
+    "Observations": "Test 1: 7 fails, 1 success\n**% success rate: 14.29**",
+    "Actions": "Inspect the RF coils for any damage or loose connections. Check the scanner software for any updates or patches that may reduce signal ghosting. Perform a system calibration to ensure that the RF coils are operating within specifications.",
+    "Components": "**RF coils**",
+    "Urgency (Approx.)": "30 days",
+    "Impact": "Medium"
+  },
+  {
+    "Name": "Low-contrast object detectability (contrast level)",
+    "Observations": "Test 1 with 1.4 percent of contrast level: 7 fails, 1 success\nTest 1 with 2.5 percent of contrast level: 8 success, 0 fails\nTest 1 with 3.6 percent of contrast level: 8 success, 0 fails\nTest 1 with 5.1 percent of contrast level: 8 success, 0 fails\nTest 2 with 1.4 percent of contrast level: 7 fails, 1 success\nTest 2 with 2.5 percent of contrast level: 8 success, 0 fails\nTest 2 with 3.6 percent of contrast level: 8 success, 0 fails\nTest 2 with 5.1 percent of contrast level: 8 success, 0 fails\n**% success rate: 85.71**",
+    "Actions": "Inspect the RF coils and gradient coils for any damage or loose connections. Check the scanner software for any updates or patches that may improve low-contrast object detectability. Perform a system calibration to ensure that the RF coils and gradient coils are operating within specifications.",
+    "Components": "**RF coils**, **Gradient coils**",
+    "Urgency (Approx.)": "7 days",
+    "Impact": "Medium"
+  },
+  {
+    "Name": "Signal-to-noise ratio",
+    "Observations": "Test 1: 7 fails, 1 success\nTest 2: 7 fails, 1 success\n**% success rate: 14.29**",
+    "Actions": "Inspect the RF coils and gradient coils for any damage or loose connections. Check the scanner software for any updates or patches that may improve signal-to-noise ratio. Perform a system calibration to ensure that the RF coils and gradient coils are operating within specifications.",
+    "Components": "**RF coils**, **Gradient coils**",
+    "Urgency (Approx.)": "Immediate",
+    "Impact": "Critical"
+  },
+  {
+    "Name": "Central frequency (Hz)",
+    "Observations": "Test 1: 8 success, 0 fails\n**% success rate: 100**",
+    "Actions": "N/A",
+    "Components": "**Not applicable**",
+    "Urgency (Approx.)": "N/A",
+    "Impact": "N/A"
+  }]

@@ -1,7 +1,7 @@
 
 <div class="row">
     
-   
+<!--    
   <div class="col-xl-6 col-md-12">
     <div class="card">
       <div class="card-body">
@@ -52,8 +52,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-6 col-md-12">
+  </div> -->
+  <!-- <div class="col-xl-6 col-md-12">
   <div class="card">
     <div class="card-body">
       <div class="row mb-3 align-items-center">
@@ -97,23 +97,23 @@
               <div class="col-auto">
                 <h4 class="mb-0">
                   {{ list.time
-                  }}
+                  }} -->
                   <!-- <span class="ms-2 align-top avtar avtar-xxs {{ list.bgColor }}"
                     ><i class="{{ list.icon }} {{ list.color }}"></i
                   ></span> -->
-                </h4>
+                <!-- </h4>
               </div>
             </div>
           </li>
         }
-      </ul>
+      </ul> -->
       <!-- <div class="text-center">
         <a href="javascripr:" class="b-b-primary text-primary">View all <i class="ti ti-chevron-right"></i></a>
       </div> -->
-    </div>
+    <!-- </div>
   </div>
-  </div>
-  <div class="col-xl-6 col-md-12">
+  </div> -->
+  <!-- <div class="col-xl-6 col-md-12">
     <div class="card">
       <div class="card-body">
         <div id="growthChart">
@@ -176,7 +176,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="col-xl-4 col-md-12">
       <div class="card">
         <div class="card-body">
@@ -285,23 +285,27 @@
     </div> -->
     
     
-    <!-- <div class="col-xl-6 col-md-12">
+    <div class="col-xl-12 col-md-12">
+     <h3>MRI Quality Assessment</h3>
+     <hr class="my-4 seperation bg-secondary">
       <div class="card">
         <div class="card-body">
-          <div id="growthChart">
+          <div id="growthChart" *ngIf="isScatterReady">
             <apx-chart
             [series]="scatterChart.series"
             [chart]="scatterChart.chart"
             [xaxis]="scatterChart.xaxis"
             [yaxis]="scatterChart.yaxis"
-            [dataLabels]="scatterChart.dataLabels"
-            [grid]="scatterChart.grid"
+          [tooltip]="scatterChart.tooltip"
           ></apx-chart>
+          <div *ngIf="!isScatterReady" class="spinner-container" role="status">
+          <div class="spinner-border" role="status"></div>
+        </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-xl-6 col-md-12">
+    <!-- <div class="col-xl-6 col-md-12">
       <div class="card">
         <div class="card-body">
           <div id="growthChart">

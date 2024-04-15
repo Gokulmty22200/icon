@@ -1,18 +1,67 @@
 /* Adjust the height of the chat sidebar and chat messages */
-.chat-messages {
-    height: calc(100% - 80px); /* Adjust the value as needed */
-  }
+.container {
+  width: 100%;
+  margin: auto;
+  overflow: auto;
+  background-color: white;
+}
+.chat-window {
+  height: 400px;
+  overflow-y: auto;
+}
+.message-container {
+  display: flex;
+  align-items: center;
+}
+.user-message {
+  background-color: #DCF8C6;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  align-self: flex-end; /* Aligns user message to the right */
+}
+.reply-message {
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  align-self: flex-end; /* Aligns reply message to the right */
+}
+.input-group {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+.user-image, .reply-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.user-image {
+  float: right;
+}
+.reply-image {
+  float: left;
+}
 
-  .container-fluid{
-    background-color: white;
-  }
-  /* Style for chat messages */
-  .message {
-    margin-bottom: 10px;
-  }
-  
-  /* Style for text input box */
-  .input-group {
-    width: 100%;
-  }
-  
+.dropzone {
+  border: 2px dashed #007bff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.upload-icon {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.file-item {
+  margin-bottom: 5px;
+  background-color: #f0f0f0;
+  padding: 5px;
+}
