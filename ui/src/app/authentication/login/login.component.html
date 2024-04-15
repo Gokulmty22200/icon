@@ -4,7 +4,7 @@
       <div class="card my-5">
         <div class="card-body">
           <a href="#" class="d-flex justify-content-center">
-            <img src="assets/images/logo-dark.svg" />
+            <img src="assets/images/logo.png" />
           </a>
           <div class="row">
             <div class="d-flex justify-content-center">
@@ -23,14 +23,18 @@
             <span>or</span>
           </div> -->
           <!-- <h5 class="my-4 d-flex justify-content-center"> Sign in with Email address </h5> -->
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" value="info@codedthemes.com" />
-            <label for="floatingInput">Username</label>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInput" formControlName="username" />
+              <label for="floatingInput">Username</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" value="12345" />
-            <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" />
+              <label for="password">Password</label>
           </div>
+          <div *ngIf="showError" class="alert alert-danger" role="alert">
+            Please Check Username and Password
+        </div>
           <div class="d-flex mt-1 justify-content-between">
             <div class="form-check">
               <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
@@ -41,8 +45,9 @@
             </h5>
           </div>
           <div class="d-grid mt-4">
-            <button type="button" class="btn btn-secondary">Sign In</button>
+            <button type="submit" class="btn btn-secondary">Log In</button>
           </div>
+        </form>
           <hr />
           <h5 class="d-flex justify-content-center">
             <a [routerLink]="['/guest/register']">Don't have an account?</a>

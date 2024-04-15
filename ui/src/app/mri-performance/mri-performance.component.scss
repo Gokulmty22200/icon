@@ -1,0 +1,95 @@
+
+ .container {
+    width: 100%;
+    margin: auto;
+    overflow: auto;
+    background-color: white;
+ }
+ 
+ h1 {
+    font-size: 3em;
+    text-align: center;
+    padding: 5px;
+    color: #673ab7;
+ }
+ 
+ h2 {
+    font-size: 1.4em;
+    color: #333;
+    text-align: left;
+ }
+ th {
+   color: #673ab7 !important;
+ }
+ 
+ .heading {
+    font-size: 1.2em;
+    color: #673ab7;
+    margin-top: 25px;
+    font-weight: 500;
+    margin-bottom: 15px;
+ }
+
+ .table{
+    margin-bottom: 25px;
+ }
+
+ .info{
+    cursor: pointer;
+ }
+ 
+ .seperation{
+   border-width: 5px;
+ }
+
+ .modal-body {
+   font-family: Arial, sans-serif;
+   line-height: 1.6;
+   padding: 20px;
+   background-color: white;
+}
+
+.highlight {
+background-color: #ffffcc;
+padding: 10px;
+border-radius: 5px;
+margin-bottom: 20px;
+}
+
+.action-list {
+   list-style-type: none;
+   padding-left: 0;
+}
+
+.action-list li {
+   margin-bottom: 10px;
+}
+
+.modal-header {
+background-color: #e1d8f1; 
+border-bottom: 1px solid #ccc;
+padding: 15px; 
+}
+
+.modal-title {
+margin: 0; 
+}
+
+.btn-close {
+float: right; 
+margin-top: -5px; 
+margin-right: -10px; 
+}
+
+
+.spinner-container {
+   display: flex;
+   justify-content: center; /* Horizontally center the spinner */
+   align-items: center; /* Vertically center the spinner */
+   height: 50vh; /* Set the height to the full viewport height for vertical centering */
+ }
+ 
+ .spinner-border {
+   width: 4rem; /* Increase the size of the spinner */
+   height: 4rem; /* Increase the size of the spinner */
+ }

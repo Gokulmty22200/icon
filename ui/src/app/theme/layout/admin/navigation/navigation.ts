@@ -37,7 +37,7 @@ const NavigationItems = [
         title: 'MRI Performance',
         type: 'item',
         classes: 'nav-item',
-        url: '/guest/login',
+        url: '/mri-performance',
         icon: 'ti ti-report',
         breadcrumbs: false
       },
@@ -46,7 +46,7 @@ const NavigationItems = [
         title: 'MRI Quality Assessment',
         type: 'item',
         classes: 'nav-item',
-        url: '/guest/login',
+        url: '/mri-qa',
         icon: 'ti ti-chart-line',
         breadcrumbs: false
       },
@@ -64,7 +64,7 @@ const NavigationItems = [
         title: 'Audit Trial',
         type: 'item',
         classes: 'nav-item',
-        url: '/guest/login',
+        url: '/audit-trial',
         icon: 'ti ti-adjustments-alt',
         breadcrumbs: false
       }

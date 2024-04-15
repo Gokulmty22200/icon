@@ -6,6 +6,7 @@
   }
   .custom-select {
     width: auto;
+    line-height: normal;
     background-color: #f8f9fa;
     border-color: #ced4da;
     border-radius: 0.25rem;
@@ -15,4 +16,30 @@
     padding: 0.5rem 2rem;
   }
   
+  .value-text {
+    margin-right: 10px;
+    border-right: 1px solid white; /* Vertical line */
+    padding-right: 10px; /* Padding to create space between the value and text */
+}
+
+.info-text p {
+    margin-bottom: 5px; /* Add some bottom margin between lines of text */
+    font-size: 14px; /* Adjust font size */
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center; /* Horizontally center the spinner */
+  align-items: center; /* Vertically center the spinner */
+  height: 50vh; /* Set the height to the full viewport height for vertical centering */
+}
+
+.spinner-border {
+  width: 4rem; /* Increase the size of the spinner */
+  height: 4rem; /* Increase the size of the spinner */
+}
+
+.scan-time {
+  font-size: 1.8rem !important;
+}
   
