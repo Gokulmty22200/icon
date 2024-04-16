@@ -1,0 +1,81 @@
+   <div class="container">
+       <h1>Magnet Resonance Imaging (MRI)</h1>
+       <span class="round small"></span>
+        <span class="round big"></span>
+       <hr class="my-4 bg-secondary">
+
+       <h2>Current Status & Actions for Maintenance: Based on Scan Data</h2>
+<div *ngIf="sampleData" class="container">
+    <div *ngFor="let item of sampleData">
+  <p class="heading">Current scan details with MRI performance data</p>
+        <div class="table-responsive table">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr class="text-muted">
+                <th>Sl. No.</th>
+                <th>Scan Type</th>
+                <th>Scan Time</th>
+                <th>SNR (dB)</th>
+                <th>Drift (Hz)</th>
+                <th>Drift PPM (ppm)</th>
+                <th>Grad Perf (G/cm/ms)</th>
+                <th>Coil Type</th>
+                <th>Error Temp (°C)</th>
+                <th>Sys Temp (°C)</th>
+                <th>Cryo Boiloff (liters/hour)</th>
+                <th>RF Power (%)</th>
+                <th>Grad Temp (°C)</th>
+                <th>Grad Current (A)</th>
+                <th>X Axis Pos (mm)</th>
+                <th>Y Axis Pos (mm)</th>
+                <th>Z Axis Pos (mm)</th>
+                <th>Error Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{item.s_no}}</td>
+                <td>{{item.scan_type}}</td>
+                <td>{{item.scan_time}}</td>
+                <td>{{item.snr}}</td>
+                <td>{{item.drift}}</td>
+                <td>{{item.drift_ppm}}</td>
+                <td>{{item.grad_perf}}</td>
+                <td>{{item.coil_type}}</td>
+                <td>{{item.error_temp}}</td>
+                <td>{{item.sys_temp}}</td>
+                <td>{{item.cyro_boiloff}}</td>
+                <td>{{item.rf_power}}</td>
+                <td>{{item.grad_temp}}</td>
+                <td>{{item.grad_current}}</td>
+                <td>{{item.x_axis_pos}}</td>
+                <td>{{item.y_axis_pos}}</td>
+                <td>{{item.z_axis_pos}}</td>
+                <td>{{item.preds}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="heading">Current Status: <i *ngIf="item.preds !== 'No Error'" class="text-blue ti ti-info-circle info" (click)="openLg(content,item)"></i></p>
+        <span style="font-size: 1.2em;">Scan is Successful. MRI Performance is Normal.</span>
+        <hr class="my-4 seperation bg-secondary">
+      </div>
+    </div>   
+    <div *ngIf="!sampleData" class="spinner-container" role="status">
+      <div class="spinner-border" role="status"></div>
+    </div>   
+   </div>
+
+   <!-- Modal -->
+   <ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title"><strong>Error {{selectedErrrorDesc.errorType}} - {{selectedErrrorDesc.title}}</strong></h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <app-dynamic-content [content]="selectedErrrorDesc.description"></app-dynamic-content>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>

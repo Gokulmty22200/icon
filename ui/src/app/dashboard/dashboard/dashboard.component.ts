@@ -4,8 +4,9 @@ import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import ApexCharts from 'apexcharts';
 
-import {MONTHS, YEARS } from '../../shared/constants/dashboard-constants'
-
+import {MONTHS, YEARS, SCANTYPE } from '../../shared/constants/dashboard-constants';
+import { DashboardService } from '../services/dashboard.service';
+import { DataItem, DataItemMonthly, ScanData } from '../interface/dashboard.interface';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -20,6 +21,8 @@ import {
   ApexNonAxisChartSeries,
   ApexFill
 } from 'ng-apexcharts';
+import { forkJoin } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -66,155 +69,136 @@ export class DashboardComponent implements OnInit {
 
   monthsData = Object.values(MONTHS);
   yearData = Object.values(YEARS);
-
+  scanType = Object.values(SCANTYPE);
+  totalScanCount: number = 0;
+  avgScanTime: string = '0:00';
+  errorCount: number = 0;
+  codeWiseErrorCount = [];
+  codeWiseErrorCode = [];
+  sortForm: FormGroup;
+  selectedScanType: string = SCANTYPE.ABDOMEN;
+  isBarReady: boolean = false;
+  isPieReady: boolean = false;
+  isLineReady: boolean = false;
+  avgScanCount: number = 0;
+  scanListGroup = [];
   monthChart: any;
   yearChart: any;
   colorChart = ['#673ab7'];
 
-  // Constructor
-  constructor() {
-    this.chartOptions = {
-      series: [
-        {
-          name: "Scans",
-          data: [21, 22, 10, 28, 16]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "bar",
-        events: {
-          click: function(chart, w, e) {
-            // console.log(chart, w, e)
-          }
-        }
-      },
-      colors: [
-        "#008FFB",
-        "#00E396",
-        "#FEB019",
-        "#FF4560",
-        "#775DD0",
-        "#546E7A",
-        "#26a69a",
-        "#D10CE8"
-      ],
-      plotOptions: {
-        bar: {
-          columnWidth: "45%",
-          distributed: true
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      legend: {
-        show: false
-      },
-      grid: {
-        show: false
-      },
-      xaxis: {
-        categories: [
-          "Head",
-          "Abdomen",
-          "Leg",
-          "Spinal",
-          "Chest"
-        ],
-        labels: {
-          style: {
-            colors: [
-              "#008FFB",
-              "#00E396",
-              "#FEB019",
-              "#FF4560",
-              "#775DD0",
-              "#546E7A",
-              "#26a69a",
-              "#D10CE8"
-            ],
-            fontSize: "12px"
-          }
-        }
-      }
-    };
-    this.chartOptions1 = {
-      chart: {
-        type: 'area',
-        height: 95,
-        stacked: true,
-        sparkline: {
-          enabled: true
-        }
-      },
-      colors: ['#673ab7'],
-      stroke: {
-        curve: 'smooth',
-        width: 1
-      },
+  constructor( private dashboardService: DashboardService, private fb: FormBuilder) {
+    // this.renderPieChart();
+    // this.renderBarChart();
+    // this.renderLineChart();
+  }
 
-      series: [
-        {
-          data: [0, 15, 10, 50, 30, 40, 25]
-        }
-      ]
-    };
-    this.lineChart = {
-      series: [
-        {
-          name: "Desktops",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "line",
-        zoom: {
-          enabled: false
-        }
+  // Life cycle events
+  ngOnInit(): void {
+    this.getDashboardData();
+    this.getMonthErrorCount();
+
+    this.sortForm = this.fb.group({
+      month: ['12'], 
+      year: ['2023'] 
+    });
+   
+  }
+
+  sortData(){
+    const formData = this.sortForm.value;
+    this.getDashboardData(formData);
+  }
+
+  isObjectEmpty(obj: object): boolean {
+    return Object.keys(obj).length === 0;
+  }
+
+  getDashboardData(timelineData={month: '12', year: '2023'}){
+    const isEmpty = this.isObjectEmpty(timelineData);
+    forkJoin([
+      this.dashboardService.getDashboardCardsData(timelineData, isEmpty),
+      this.dashboardService.getDashboardReportsData(timelineData, isEmpty)
+    ]).subscribe(
+      ([response1,response2]) => {
+        this.totalScanCount = response1[0].data[0].SCAN_COUNT !== null ? response1[0].data[0].SCAN_COUNT : 0;
+        this.avgScanTime =  this.convertSecondsToMinutesAndSeconds(response1[1]?.data[0]?.SCAN_TIME);
+        this.avgScanCount = response1[1]?.data[0]?.COUNT;
+        this.errorCount = response1[2].data[0].COUNT !== null ? response1[2].data[0].COUNT : 0;
+        this.sortCodeWiseErrorData(response2[0].data);
+        this.sortAvgSnrData(response2[1].data);
+        this.sortTopData(response2[2].data);
+        this.selectedScanType = SCANTYPE.ABDOMEN;
       },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "straight"
-      },
-      title: {
-        text: "Product Trends by Month",
-        align: "left"
-      },
-      grid: {
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5
-        }
-      },
-      xaxis: {
-        categories: [
-          "Head",
-          "Leg",
-          "Abdom",
-          "Spine",
-          "Neck",
-          "Hand",
-          "Hip",
-          "Pelvic",
-          "Chest"
-        ]
+      error => {
+        console.error('Error fetching data:', error);
+        // Display error message or retry logic
       }
-    };
+    );
+  }
+
+  convertSecondsToMinutesAndSeconds(data) {
+    let minutes;
+    let seconds;
+    if(data){
+    minutes = Math.floor(data / 60);
+    seconds = Math.round(data % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds.toString();
+    minutes = minutes+':'+seconds;
+    return minutes;
+    }
+    else {
+      minutes = '0:00';
+    return minutes;
+    }
+  }
+
+  sortTopData(scanData){
+    this.scanListGroup =[];
+    scanData.forEach(data =>{
+      data.AVG_SCAN_TIME = this.convertSecondsToMinutesAndSeconds(data.AVG_SCAN_TIME);
+      this.scanListGroup.push(data);
+    });
+
+  }
+
+  handleScanChange($event){
+    const scanType: string = $event.target.value;
+    const timeData = this.sortForm.value;
+        this.dashboardService.getAverageScanTime(scanType,timeData)
+      .subscribe((response: any) => {
+        this.avgScanTime = this.convertSecondsToMinutesAndSeconds(response.data[0].SCAN_TIME);
+        this.avgScanCount = response.data[0]?.COUNT;
+      },
+      error =>{
+        //Error handling pending
+        console.log(error);
+      });
+  }
+
+  sortCodeWiseErrorData(errorData:{ [key: number]: DataItem }){
+    const countArray: number[] = [];
+    const errorCodeArray: string[] = [];
+    
+    Object.values(errorData).forEach(item => {
+      countArray.push(item.COUNT);
+      errorCodeArray.push('Error '+ item.ERROR_CODE);
+    });
+    this.renderPieChart(countArray,errorCodeArray);
+    
+  }
+
+  renderPieChart(countArray=[],errorCodeArray=[]){
     this.pieChart = {
-      series: [44, 55, 13, 43, 22],
+      series: countArray,
       chart: {
         width: 380,
         type: "pie"
       },
       title: {
         text: "Errors Overview",
-        align: "center"
+        align: "left"
       },
-      labels: ["Error 1", "Error 2", "Error 3", "Error 4", "Error 5"],
+      labels: errorCodeArray,
       responsive: [
         {
           breakpoint: 480,
@@ -229,122 +213,40 @@ export class DashboardComponent implements OnInit {
         }
       ]
     };
+    this.isPieReady = true;
+  }
 
-    this.scatterChart = {
-      series: [
-        {
-          name: "Component 1",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017 GMT").getTime(),
-            2,
-            {
-              min: 10,
-              max: 60
-            }
-          )
+  getMonthErrorCount(){
+    this.dashboardService.getMonthErrorCount()
+          .subscribe((response: any) => {
+            this.renderBarChart(response.data);
         },
-        {
-          name: "Component 2",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017 GMT").getTime(),
-            3,
-            {
-              min: 10,
-              max: 60
+        error =>{
+          //Error handling pending
+          console.log(error);
+        });
+  }
+
+  renderBarChart(responseData=[]){
+    const data: { [key: number]: DataItemMonthly } = responseData
+          const errorData: { [key: string]: number[] } = {};
+
+          Object.values(data).forEach((item: DataItemMonthly) => {
+            if (!errorData[item.ERROR_CODE]) {
+              errorData[item.ERROR_CODE] = Array(12).fill(0); 
             }
-          )
-        },
-        {
-          name: "Component 3",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017 GMT").getTime(),
-            4,
-            {
-              min: 10,
-              max: 60
-            }
-          )
-        },
-        {
-          name: "Component 4",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017 GMT").getTime(),
-            6,
-            {
-              min: 10,
-              max: 60
-            }
-          )
-        },
-        {
-          name: "Component 5",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017 GMT").getTime(),
-            7,
-            {
-              min: 10,
-              max: 60
-            }
-          )
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "scatter",
-        zoom: {
-          type: "xy"
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      grid: {
-        xaxis: {
-          lines: {
-            show: true
-          }
-        },
-        yaxis: {
-          lines: {
-            show: true
-          }
-        }
-      },
-      xaxis: {
-        type: "datetime"
-      },
-      yaxis: {
-        max: 70,
-        seriesName: 'Alert',
-        labels: {
-          show: true
-        }
-      }
-    };
+            errorData[item.ERROR_CODE][parseInt(item.MONTH) - 1] += item.COUNT; 
+          });
+          
+          const output = Object.entries(errorData).map(([errorCode, counts]) => {
+            return {
+              name: 'Error ' + errorCode,
+              data: counts
+            };
+          });
 
     this.barChart = {
-      series: [
-        {
-          name: "Error 1",
-          data: [4, 1, 2, 0, 2, 3, 1,2,3,6,1]
-        },
-        {
-          name: "Error 2",
-          data: [5, 2, 0, 1, 1, 3, 2,2,3,6,1]
-        },
-        {
-          name: "Error 3",
-          data: [9, 1, 1, 9, 1, 5, 0,2,3,6,1]
-        },
-        {
-          name: "Error 4",
-          data: [9, 7, 5, 8, 6, 9, 4,2,3,6,1]
-        },
-        {
-          name: "Error 5",
-          data: [2, 1, 1, 3, 2, 2, 1,2,3,6,1]
-        }
-      ],
+      series: output,
       chart: {
         type: "bar",
         height: 350,
@@ -360,7 +262,7 @@ export class DashboardComponent implements OnInit {
         colors: ["#fff"]
       },
       title: {
-        text: "Error Monthly Report"
+        text: "Previous Year Error Report"
       },
       xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'July', 'Aug','Sep','Oct','Nov','Dec'],
@@ -391,216 +293,53 @@ export class DashboardComponent implements OnInit {
         offsetX: 40
       }
     };
+    this.isBarReady = true;
   }
 
-  // Life cycle events
-  ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.monthChart = new ApexCharts(document.querySelector('#tab-chart-1'), this.monthOptions);
-    //   this.monthChart.render();
-    // }, 500);
+  sortAvgSnrData(responseData){
+    const data: { [key: number]: ScanData } = responseData;
+    const avgArray: number[] = Object.values(data).map((item: ScanData) => {
+    return Math.floor(item.AVG * 100) / 100;
+    });
+    this.renderLineChart(avgArray);
   }
 
-  // public Method
-  onNavChange(changeEvent: NgbNavChangeEvent) {
-    if (changeEvent.nextId === 1) {
-      // setTimeout(() => {
-      //   this.monthChart = new ApexCharts(document.querySelector('#tab-chart-1'), this.monthOptions);
-      //   this.monthChart.render();
-      // }, 200);
-    }
-
-    if (changeEvent.nextId === 2) {
-      setTimeout(() => {
-        this.yearChart = new ApexCharts(document.querySelector('#tab-chart-2'), this.yearOptions);
-        this.yearChart.render();
-      }, 200);
-    }
-  }
-
-  public generateDayWiseTimeSeries(baseval, count, yrange) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-      var y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-      series.push([baseval, y]);
-      baseval += 86400000;
-      i++;
-    }
-    return series;
-  }
-
-  ListGroup = [
-    {
-      name: 'Bajaj Finery',
-      profit: '10% Profit',
-      invest: '$1839.00',
-      bgColor: 'bg-light-success',
-      icon: 'ti ti-chevron-up',
-      color: 'text-success'
-    },
-    {
-      name: 'TTML',
-      profit: '10% Loss',
-      invest: '$100.00',
-      bgColor: 'bg-light-danger',
-      icon: 'ti ti-chevron-down',
-      color: 'text-danger'
-    },
-    {
-      name: 'Reliance',
-      profit: '10% Profit',
-      invest: '$200.00',
-      bgColor: 'bg-light-success',
-      icon: 'ti ti-chevron-up',
-      color: 'text-success'
-    },
-    {
-      name: 'ATGL',
-      profit: '10% Loss',
-      invest: '$189.00',
-      bgColor: 'bg-light-danger',
-      icon: 'ti ti-chevron-down',
-      color: 'text-danger'
-    },
-    {
-      name: 'Stolon',
-      profit: '10% Profit',
-      invest: '$210.00',
-      bgColor: 'bg-light-success',
-      icon: 'ti ti-chevron-up',
-      color: 'text-success'
-    }
-  ];
-
-
-  ScanListGroup = [
-    {
-      name: 'Scan 5',
-      type: 'Head',
-      time: '25 Mins'
-    },
-    {
-      name: 'Scan 11',
-      type: 'Abdomen',
-      time: '30 Mins'
-    },
-    {
-      name: 'Scan 79',
-      type: 'Leg',
-      time: '35 Mins'
-    },
-    {
-      name: 'Scan 137',
-      type: 'Head',
-      time: '44 Mins'
-    },
-    {
-      name: 'Scan 200',
-      type: 'Chest',
-      time: '47 Mins'
-    }
-  ];
-
-  monthOptions = {
-    chart: {
-      type: 'line',
-      height: 90,
-      sparkline: {
-        enabled: true
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    colors: ['#FFF'],
-    stroke: {
-      curve: 'smooth',
-      width: 3
-    },
-    series: [
-      {
-        name: 'series1',
-        data: [45, 66, 41, 89, 25, 44, 9, 54]
-      }
-    ],
-    yaxis: {
-      min: 5,
-      max: 95
-    },
-    tooltip: {
-      theme: 'dark',
-      fixed: {
-        enabled: false
-      },
-      x: {
-        show: false
-      },
-      y: {
-        title: {
-          formatter: function (seriesName) {
-            return 'Total Hours';
-          }
+  renderLineChart(lineData = []){
+    this.lineChart = {
+      series: [
+        {
+          name: "Scans",
+          data: lineData
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "line",
+        zoom: {
+          enabled: false
         }
       },
-      marker: {
-        show: false
-      }
-    }
-  };
-
-  yearOptions = {
-    chart: {
-      type: 'line',
-      height: 90,
-      sparkline: {
-        enabled: true
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    colors: ['#FFF'],
-    stroke: {
-      curve: 'smooth',
-      width: 3
-    },
-    series: [
-      {
-        name: 'series1',
-        data: [35, 44, 9, 54, 45, 66, 41, 69]
-      }
-    ],
-    yaxis: {
-      min: 5,
-      max: 95
-    },
-    tooltip: {
-      theme: 'dark',
-      fixed: {
+      dataLabels: {
         enabled: false
       },
-      x: {
-        show: false
+      stroke: {
+        curve: "straight"
       },
-      y: {
-        title: {
-          formatter: function (seriesName) {
-            return 'Total Earning';
-          }
+      title: {
+        text: "Average SNR By Scan Type",
+        align: "left"
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], 
+          opacity: 0.5
         }
       },
-      marker: {
-        show: false
+      xaxis: {
+        categories: this.scanType
       }
-    }
-  };
-
-  activeTab = 'tab1';
-
-  setActiveTab(tab: string) {
-    this.activeTab = tab;
+    };
+    this.isLineReady = true;
   }
+
 }
