@@ -71,7 +71,6 @@ export class DashboardService {
     }else {
       scanInputParams = {'month':'12', 'year':'2023','scan_type':scanType};
     }
-    console.log('I/p',scanInputParams);
     const headers = new HttpHeaders();
     return this.httpService.post(this.apiUrl + `/get-avg-scan-time`, scanInputParams, {headers});
   }

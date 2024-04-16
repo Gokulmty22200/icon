@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicContentComponent } from '../dynamic-content/dynamic-content.component';
+import { SharedService } from '../shared/services/shared.service';
 
 @Component({
   selector: 'app-mri-performance',
@@ -21,34 +22,38 @@ export class MriPerformanceComponent implements OnInit{
   fetchId = 1;
   errrorDescData: any;
   selectedErrrorDesc: any = null;
+  dataCount: number = 1;
 
-  constructor(private http: HttpClient,private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient,private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.getErrorDescData();
     this.setupTable();
     
-    interval(3000).subscribe(() => {
-      if(this.fetchId < 10){
-      this.setupTable();
-    }
+    interval(15000).subscribe(() => {
+      if(this.dataCount < 50){
+        this.setupTable();
+      }
     });
 
     setTimeout(() => {
-      // Manually trigger change detection after updating dynamicData
       this.cdr.detectChanges();
     }, 2000);
   }
 
   setupTable(){
-    this.http.get<any[]>('/assets/sample-data/mri-performance.json').subscribe(data => {
-      this.sampleData.unshift(data.find((entry: any) => entry.s_no === this.fetchId));
-
-      if (this.sampleData.length > 5) {
-        this.sampleData.splice(-1, 1);
-      }
-      this.fetchId++;
-    });
+    this.sharedService.getMRIPerformance(this.dataCount)
+          .subscribe((response: any) => {
+            this.dataCount++;
+            this.sampleData.unshift(response.data);
+            if (this.sampleData.length > 5) {
+            this.sampleData.splice(-1, 1);
+            }
+        },
+        error =>{
+          //Error handling pending
+          console.log(error);
+        });
   }
 
   getErrorDescData(){
@@ -59,16 +64,16 @@ export class MriPerformanceComponent implements OnInit{
 
   setErrorDesc(tableData){
     let replacements: { [key: string]: string }= {
-      "snr_data": tableData.snr,
-      "scan_type": tableData.scan_type,
-      "drift_hz": tableData.drift,
-      "drift_ppm": tableData.drift_ppm,
-      "coil_type": tableData.coil_type
+      "snr_data": tableData.current_data.snr,
+      "scan_type": tableData.current_data.scan_type,
+      "drift_hz": tableData.current_data.drift,
+      "drift_ppm": tableData.current_data.drift_ppm,
+      "coil_type": tableData.current_data.coil_type
     };
     let replacedTitle;
     let replacedText;
     let selectedErrrorDesc;
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType === tableData.preds);
+      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.current_data.error_code);
       if(selectedErrrorDesc.isTitleChangeRequied){
         replacedTitle = selectedErrrorDesc.title.replace(
           /scan_type/g,

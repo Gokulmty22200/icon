@@ -44,7 +44,7 @@
      <hr class="my-4 seperation bg-secondary">
      <h4>Observations, Actions and Recommendations</h4>
 
-     <div class="table-responsive table" style="height: 600px; overflow-y: auto;">
+     <div *ngIf="qaOutputData.length != 0" class="table-responsive table" style="height: 600px; overflow-y: auto;">
        <table class="table table-bordered table-striped">
          <thead>
            <tr class="text-muted">
@@ -52,7 +52,7 @@
                 <th>Observations</th>
                 <th>Actions</th>
                 <th>Components</th>
-                <th>Urgency (Approx.)</th>
+                <th>Urgency</th>
                 <th>Impact</th>
            </tr>
          </thead>
@@ -68,6 +68,9 @@
          </tbody>
        </table>
      </div>
+     <div *ngIf="!qaOutputData || qaOutputData.length == 0" class="spinner-container" role="status">
+      <div class="spinner-border" role="status"></div>
+    </div>
      <hr class="my-4 seperation bg-secondary">
 
  </div>      
