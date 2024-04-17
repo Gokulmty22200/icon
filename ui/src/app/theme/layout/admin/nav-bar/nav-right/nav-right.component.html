@@ -8,42 +8,43 @@
           href="javascript:"
           ngbDropdownToggle
         >
-          <i class="ti ti-bell"></i>
+          <i class="ti ti-bell"><span *ngIf="notifications.length" class="dot"></span></i>
         </a>
         <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
           <div class="dropdown-header">
-            <a href="javascript:!" class="link-primary float-end text-decoration-underline">Mark as all read</a>
+            <!-- <a href="javascript:!" class="link-primary float-end text-decoration-underline">Mark as all read</a> -->
             <h5>
               All Notification
-              <span class="badge bg-warning rounded-pill ms-1">01</span>
+              <span class="badge bg-warning rounded-pill ms-1">{{notifications.length}}</span>
             </h5>
           </div>
           <ng-scrollbar style="height: calc(100vh - 215px)" visibility="hover">
             <div class="dropdown-header px-0 text-wrap">
               <div class="list-group list-group-flush w-100">
-                <div class="list-group-item">
+                <!-- <div class="list-group-item">
                   <select class="form-select">
                     <option value="all">All Notification</option>
                     <option value="new">New</option>
                     <option value="unread">Unread</option>
                     <option value="other">Other</option>
                   </select>
-                </div>
-                <a class="list-group-item list-group-item-action">
-                  <div class="d-flex">
+                </div> -->
+                <a *ngFor="let notify of notifications" class="list-group-item list-group-item-action">
+                  <div  class="d-flex">
                     <div class="flex-shrink-0">
-                      <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" />
+                      <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                      <div class="user-avtar bg-light-warning"><i class="ti ti-alert-circle"></i></div>
                     </div>
                     <div class="flex-grow-1 ms-1">
                       <span class="float-end text-muted">2 min ago</span>
-                      <h5>John Doe</h5>
-                      <p class="text-body fs-6">It is a long established fact that a reader will be distracted </p>
+                      <h5><span (click)="openPopUp(content2,notify)">Error {{notify.error_code}}</span></h5>
+                      <p class="text-body fs-6">{{notify.error_desc}} </p>
                       <div class="badge rounded-pill bg-light-danger">Unread</div>
                       <div class="badge rounded-pill bg-light-warning">New</div>
                     </div>
                   </div>
                 </a>
-                <a class="list-group-item list-group-item-action">
+                <!-- <a class="list-group-item list-group-item-action">
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <div class="user-avtar bg-light-success"><i class="ti ti-building-store"></i></div>
@@ -97,7 +98,7 @@
                       <div class="badge rounded-pill bg-light-success">Confirmation of Account</div>
                     </div>
                   </div>
-                </a>
+                </a> -->
               </div>
             </div>
           </ng-scrollbar>
@@ -171,3 +172,16 @@
     </li>
   </ul>
 </div>
+<ng-template #content2 let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title"><strong>Error {{selectedErrrorDesc.errorType}} - {{selectedErrrorDesc.title}}</strong></h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <div [innerHTML]="selectedErrrorDesc.tableHtml">.</div>
+    <div [innerHTML]="selectedErrrorDesc.description">.</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>

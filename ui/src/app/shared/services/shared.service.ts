@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 
@@ -8,6 +9,8 @@ import { environment } from '../../../environments/environment';
 })
 export class SharedService {
   private apiUrl = environment.apiUrl;
+  private tableDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  tableData$: Observable<any> = this.tableDataSubject.asObservable();
 
   constructor(private httpService: HttpClient) { }
 
@@ -42,6 +45,10 @@ export class SharedService {
     const headers = new HttpHeaders();
     // let inputParams = { 'count': count}
     return this.httpService.get<any>(this.apiUrl + `/get-mri-performance-data?count=`+count);
+  }
+
+  setTableData(data: any) {
+    this.tableDataSubject.next(data);
   }
 
 }

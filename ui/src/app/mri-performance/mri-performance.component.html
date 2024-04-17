@@ -73,6 +73,7 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
+    <div [innerHTML]="selectedErrrorDesc.tableHtml">.</div>
     <app-dynamic-content [content]="selectedErrrorDesc.description"></app-dynamic-content>
 	</div>
 	<div class="modal-footer">
