@@ -215,7 +215,7 @@ isScatterReady: boolean = false;
       yaxis: {
         tickAmount: 5,
         title:{
-          text: 'Days',
+          text: 'Urgency (Days)',
           style:{
             fontSize: '18'
           }
