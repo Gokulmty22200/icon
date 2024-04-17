@@ -148,16 +148,22 @@ isScatterReady: boolean = false;
 
   getScatterData(){
     this.isScatterReady = false;
-    this.sharedService.getQaResponse()
-          .subscribe((response: any) => {
-            if(response.data){
-              this.refineData(response.data);
-            }
-          },
-              error =>{
-                //Error handling pending
-                console.log(error);
-              });
+
+    this.http.get<any[]>('/assets/sample-data/live-scatter.json').subscribe(data => {
+      this.refineData(data);
+    });
+
+    //Using static Data for Easy loading
+    // this.sharedService.getQaResponse()
+    //       .subscribe((response: any) => {
+    //         if(response.data){
+    //           this.refineData(response.data);
+    //         }
+    //       },
+    //           error =>{
+    //             //Error handling pending
+    //             console.log(error);
+    //           });
         }
 
   renderScatterChart(){
