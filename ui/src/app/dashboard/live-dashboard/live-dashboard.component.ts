@@ -95,6 +95,7 @@ isScatterReady: boolean = false;
       // console.log('comp',componentName, namesArray);
       const urgency = item.Urgency === 'immediate'? 0 : parseInt(item.Urgency.replace(' days', ''));
       let impactValue: number;
+      if(item.Impact){
       switch (item.Impact.toLowerCase()) {
         case 'critical':
           impactValue = 0;
@@ -114,6 +115,9 @@ isScatterReady: boolean = false;
         default:
           impactValue = 0;
       }
+    }else{
+      impactValue = 4
+    }
       if(namesArray.length > 1){
         namesArray.forEach(data => {
           refinedData.push({ component_name: data, urgency: urgency, impact_value: impactValue });

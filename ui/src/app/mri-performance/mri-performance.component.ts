@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -23,6 +23,7 @@ export class MriPerformanceComponent implements OnInit{
   errrorDescData: any;
   selectedErrrorDesc: any = null;
   dataCount: number = 1;
+  intervalSubscription: Subscription | undefined;
 
   constructor(private http: HttpClient,private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private sharedService: SharedService) { }
 
@@ -30,15 +31,26 @@ export class MriPerformanceComponent implements OnInit{
     this.getErrorDescData();
     this.setupTable();
     
-    interval(15000).subscribe(() => {
-      if(this.dataCount < 50){
-        this.setupTable();
-      }
-    });
+    const storedCount = localStorage.getItem('count');
+    if (storedCount) {
+      this.dataCount = parseInt(storedCount, 10);
+    }
+    this.startCounter();
 
     setTimeout(() => {
       this.cdr.detectChanges();
     }, 2000);
+  }
+
+  startCounter() {
+    this.intervalSubscription = interval(5000).subscribe(() => {
+      this.dataCount++;
+      if (this.dataCount > 50) {
+        this.dataCount = 1;
+      }
+      localStorage.setItem('count', this.dataCount.toString());
+      this.setupTable();
+    });
   }
 
   setupTable(){
@@ -46,7 +58,7 @@ export class MriPerformanceComponent implements OnInit{
           .subscribe((response: any) => {
             this.dataCount++;
             this.sampleData.unshift(response.data);
-            if (this.sampleData.length > 5) {
+            if (this.sampleData.length > 10) {
             this.sampleData.splice(-1, 1);
             }
         },
@@ -99,4 +111,10 @@ export class MriPerformanceComponent implements OnInit{
     }
 		this.modalService.open(content, { size: 'lg' });
 	}
+
+  ngOnDestroy() {
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
 }

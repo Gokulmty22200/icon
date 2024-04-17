@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class ChatPageComponent {
   @ViewChild('scrollTarget') scrollTarget: ElementRef;
   @ViewChild('contentDiv') contentDiv: ElementRef;
+  @ViewChild('chatWindow') scrollContainer!: ElementRef;
 
   fileList: File[] = [];
   overlayVisible: boolean = true;
@@ -38,6 +39,8 @@ export class ChatPageComponent {
   ngAfterViewInit(): void {
     if(this.isnewUser){
       this.scrollToDiv();
+    }else{
+    this.scrollToBottom();
     }
   }
 
@@ -72,20 +75,29 @@ export class ChatPageComponent {
     for (let i = 0; i < this.fileList.length; i++) {
       formData.append('file', this.fileList[i]);
     }
-    this.sharedService.uploadFile(formData).subscribe(
-      (response: any) => {
-        this.uploadSuccess = true; 
+    // Success only
+    this.uploadSuccess = true; 
         this.fileList = [];
         this.messageForm.controls['message'].enable();
         this.scrollToChat();
         this.inProcess = false;
-      },
-      error => {
-        this.uploadfailed = true;
-        this.inProcess = false;
-        console.error('Upload error', error);
-      }
-    );
+
+        //Disabled as file upload is not required. 
+
+    // this.sharedService.uploadFile(formData).subscribe(
+    //   (response: any) => {
+    //     this.uploadSuccess = true; 
+    //     this.fileList = [];
+    //     this.messageForm.controls['message'].enable();
+    //     this.scrollToChat();
+    //     this.inProcess = false;
+    //   },
+    //   error => {
+    //     this.uploadfailed = true;
+    //     this.inProcess = false;
+    //     console.error('Upload error', error);
+    //   }
+    // );
   }
 
   scrollToChat(){
@@ -114,12 +126,14 @@ export class ChatPageComponent {
           this.chatMessages.pop();
           this.chatMessages.push({ type: 'bot', message: response.data});
           this.saveChatData();
+           this.scrollToBottom();
     this.messageForm.controls['message'].enable();
         },
         error => {
         this.messageForm.controls['message'].enable();
         this.chatMessages.pop();
         this.chatMessages.push({ type: 'bot', message: 'Unable to Process. Please Try after Sometime.'});
+        this.scrollToBottom();
           console.error('Upload error', error);
         }
       );
@@ -156,6 +170,13 @@ export class ChatPageComponent {
       this.isnewUser = false;
       this.overlayVisible = false;
       this.chatMessages = JSON.parse(chatDataString);
+      this.scrollToBottom();
     }
+  }
+
+  scrollToBottom() {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 }

@@ -6,11 +6,11 @@
   <div #contentDiv class="row parent-div" [class.disabled]="overlayVisible">
     <div class="col-lg-12 mx-auto">
       <div class="chat-window border rounded">
-        <div class="container py-4" style="height: 330px;">
+        <div #chatWindow class="container py-4" style="height: 330px;">
                 <div *ngFor="let message of chatMessages" class="message-container" [ngStyle]="{'justify-content': message.type === 'bot' ? 'flex-start' : 'flex-end', 'padding-right': message.type === 'bot' ? '20em' : '0', 'padding-left': message.type === 'user' ? '20em' : '0'}">
                   <img [src]="message.type === 'bot' ? 'assets/images/user/bot.png' : 'assets/images/user/avatar-2.jpg'" [alt]="message.type === 'bot' ? 'User Image' : 'Reply Image'" class="user-image" *ngIf="message.type === 'bot' || message.type === 'user'">
-                  <div class="user-message" *ngIf="message.type === 'bot'">{{ message.message }}</div>
-                  <div class="reply-message ml-auto" *ngIf="message.type === 'user'">{{ message.message }}</div>
+                  <div class="user-message" *ngIf="message.type === 'bot'" [innerHTML]="message.message"></div>
+                  <div class="reply-message ml-auto" *ngIf="message.type === 'user'" [innerHTML]="message.message"></div>
                 </div>
         <!-- More chat messages here -->
       </div>
