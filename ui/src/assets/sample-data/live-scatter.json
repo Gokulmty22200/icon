@@ -6,9 +6,9 @@
     "% Success Rate": "12.5"
   },
   "Actions": "Examine the gradient amplifiers and shim coils for proper functioning. Fine-tune the gradient system and adjust the shim settings to improve geometric accuracy.",
-  "Components": "**Gradient System, Shim Coils**",
+  "Components": "**Gradient System**, **Shim Coils**",
   "Urgency": "7 days",
-  "Impact": "Moderate"
+  "Impact": "High"
 },
 {
   "Name": "High-contrast spatial resolution (mm)",
@@ -31,8 +31,8 @@
   },
   "Actions": "Calibrate the slice thickness setting and ensure the proper functioning of the slice select gradient coil. Check for any mechanical issues that may affect slice thickness.",
   "Components": "**Slice Select Gradient Coil**",
-  "Urgency": "30 days",
-  "Impact": "Moderate"
+  "Urgency": "50 days",
+  "Impact": "Medium"
 },
 {
   "Name": "Slice position accuracy (mm)",
@@ -43,8 +43,8 @@
   },
   "Actions": "Check the slice position encoding gradient coil for proper calibration and operation. Ensure the correct positioning of the patient and the use of appropriate imaging parameters.",
   "Components": "**Slice Position Encoding Gradient Coil**",
-  "Urgency": "30 days",
-  "Impact": "Moderate"
+  "Urgency": "60 days",
+  "Impact": "Low"
 },
 {
   "Name": "Image intensity Uniformity (%)",
@@ -67,8 +67,8 @@
   },
   "Actions": "Examine the receiver coils and cabling for any loose connections or damage. Check the shielding of the MRI room to minimize external interference.",
   "Components": "**Receiver Coils**",
-  "Urgency": "30 days",
-  "Impact": "Moderate"
+  "Urgency": "45 days",
+  "Impact": "Medium"
 },
 {
   "Name": "Low-contrast object detectability (contrast level)",
@@ -78,8 +78,8 @@
     "% Success Rate": "87.5"
   },
   "Actions": "Optimize the contrast agent administration protocol and imaging parameters. Ensure the proper functioning of the radiofrequency coils and the gradient system.",
-  "Components": "**Radiofrequency Coils, Gradient System**",
-  "Urgency": "30 days",
+  "Components": "**Radiofrequency Coils**, **Gradient System**",
+  "Urgency": "40 days",
   "Impact": "Moderate"
 },
 {
@@ -92,7 +92,7 @@
   "Actions": "Check the receiver coils for proper functioning and positioning. Examine the cabling and connections to ensure optimal signal transmission. Optimize the imaging parameters to improve signal-to-noise ratio.",
   "Components": "**Shim Coils**",
   "Urgency": "90 days",
-  "Impact": "Medium"
+  "Impact": "Low"
 },
 {
   "Name": "Central frequency (Hz)",
@@ -102,8 +102,8 @@
     "% Success Rate": "12.5"
   },
   "Actions": "Examine the radiofrequency transmitter and receiver systems for proper calibration and operation. Check the shielding of the MRI room to minimize external interference.",
-  "Components": "**Radiofrequency Transmitter, Receiver**",
-  "Urgency": "Immediate",
+  "Components": "**Radiofrequency Transmitter**, **Receiver**",
+  "Urgency": "5 days",
   "Impact": "Critical"
 }
 ]

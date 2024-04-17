@@ -56,7 +56,6 @@ export class MriPerformanceComponent implements OnInit{
   setupTable(){
     this.sharedService.getMRIPerformance(this.dataCount)
           .subscribe((response: any) => {
-            this.dataCount++;
             this.sampleData.unshift(response.data);
             if (this.sampleData.length > 10) {
             this.sampleData.splice(-1, 1);
@@ -78,7 +77,7 @@ export class MriPerformanceComponent implements OnInit{
     let replacements: { [key: string]: string }= {
       "snr_data": tableData.current_data.snr,
       "scan_type": tableData.current_data.scan_type,
-      "drift_hz": tableData.current_data.drift,
+      "drift_hz": tableData.current_data.drift_hz,
       "drift_ppm": tableData.current_data.drift_ppm,
       "coil_type": tableData.current_data.coil_type
     };

@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
-export class NavRightComponent {}
+export class NavRightComponent {
+
+  logout(){
+    localStorage.clear();
+  }
+}

@@ -186,15 +186,22 @@ isScatterReady: boolean = false;
       },
       xaxis: {
         type:"numeric",
-        tickAmount: 3,
+        tickAmount: 4,
+        title:{
+          text: 'Impact',
+          style:{
+            fontSize: '18'
+          }
+        },
         labels: {
+          show: true,
           formatter: function(val) {
             if(val == '1'){
               return 'High';
             }else if(val == '2'){
-              return 'Medium';
-            }else if(val == '3'){
               return 'Moderate';
+            }else if(val == '3'){
+              return 'Medium';
             }else if(val == '4'){
               return 'Low';
             }else if(val == '0'){
@@ -206,7 +213,18 @@ isScatterReady: boolean = false;
         }
       },
       yaxis: {
-        tickAmount: 5
+        tickAmount: 5,
+        title:{
+          text: 'Days',
+          style:{
+            fontSize: '18'
+          }
+        },
+        show:true,
+        labels: {
+          show: true,
+          align: 'center',
+        }
       },
       tooltip: {
         y: {
