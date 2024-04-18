@@ -1,6 +1,6 @@
 <div class="container py-4">
   <div class="alert alert-success alert-dismissible fade show" *ngIf="uploadSuccess">
-    File(s) uploaded successfully!
+    <span *ngFor="let fileData of uploadedFileHistory; let last = last">{{ fileData.name }}{{ !last ? ', ' : '' }}</span>- File(s) uploaded successfully!
     <i class="ti ti-x opacity-50" (click)="dismissAlert()"></i>
   </div>
   <div #contentDiv class="row parent-div" [class.disabled]="overlayVisible">

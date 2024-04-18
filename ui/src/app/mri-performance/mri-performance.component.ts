@@ -36,6 +36,7 @@ export class MriPerformanceComponent implements OnInit{
       this.dataCount = parseInt(storedCount, 10);
     }
     this.startCounter();
+    this.sharedService.setTableData('Clear');
 
     setTimeout(() => {
       this.cdr.detectChanges();

@@ -104,10 +104,10 @@ isScatterReady: boolean = false;
           impactValue = 1;
           break;
         case 'moderate':
-          impactValue = 2;
+          impactValue = 3;
           break;
         case 'medium':
-          impactValue = 3;
+          impactValue = 2;
           break;
         case 'low':
           impactValue = 4;
@@ -198,9 +198,9 @@ isScatterReady: boolean = false;
           formatter: function(val) {
             if(val == '1'){
               return 'High';
-            }else if(val == '2'){
-              return 'Moderate';
             }else if(val == '3'){
+              return 'Moderate';
+            }else if(val == '2'){
               return 'Medium';
             }else if(val == '4'){
               return 'Low';

@@ -20,8 +20,10 @@ export class NavRightComponent implements OnInit{
 
   ngOnInit(): void {
     this.sharedService.tableData$.subscribe(data => {
-      if(data){
+      if(data && data !== 'Clear'){
         this.notifications.push(data);
+      }else{
+        this.notifications = [];
       }
     });
     this.getErrorDescData();

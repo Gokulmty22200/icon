@@ -58,12 +58,12 @@
          </thead>
          <tbody>
             <tr *ngFor="let row of qaOutputData">
-                <td>{{ row.Name }}</td>
-                <td>{{ row.Observations }}</td>
-                <td>{{ row.Actions }}</td>
-                <td>{{ row.Components }}</td>
-                <td>{{ row.Urgency}}</td>
-                <td>{{ row.Impact }}</td>
+                <td [innerHTML]="row.Name"></td>
+                <td [innerHTML]="row.Observations"></td>
+                <td [innerHTML]="row.Actions"></td>
+                <td [innerHTML]="row.Components"></td>
+                <td [innerHTML]="row.Urgency"></td>
+                <td [innerHTML]="row.Impact"></td>
               </tr>
          </tbody>
        </table>

@@ -36,6 +36,9 @@ export class MriQaComponent implements OnInit {
         error =>{
           //Error handling pending
           console.log(error);
+          this.http.get<any[]>('/assets/sample-data/mri-qa-output.json').subscribe(data => {
+            this.qaOutputData = data;
+          });
         });
   }
 

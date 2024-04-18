@@ -25,7 +25,8 @@ export class ChatPageComponent {
   ];
   messageForm: FormGroup;
   isnewUser: boolean = true;
-  inProcess: boolean = false
+  inProcess: boolean = false;
+  uploadedFileHistory: File[] = [];
 
   constructor(private sharedService: SharedService, private viewportScroller: ViewportScroller, private formBuilder: FormBuilder) { }
 
@@ -76,10 +77,12 @@ export class ChatPageComponent {
       formData.append('file', this.fileList[i]);
     }
     // Success only
-    this.uploadSuccess = true; 
+    this.uploadSuccess = true;
+    this.uploadedFileHistory.push(...this.fileList);
         this.fileList = [];
         this.messageForm.controls['message'].enable();
         this.scrollToChat();
+
         this.inProcess = false;
 
         //Disabled as file upload is not required. 
