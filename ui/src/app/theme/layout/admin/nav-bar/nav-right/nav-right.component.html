@@ -8,14 +8,14 @@
           href="javascript:"
           ngbDropdownToggle
         >
-          <i class="ti ti-bell"><span *ngIf="notifications.length" class="dot"></span></i>
+          <i class="ti ti-bell"><span *ngIf="notifications.length || preventiveNotifications.length" class="dot"></span></i>
         </a>
         <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
           <div class="dropdown-header">
             <!-- <a href="javascript:!" class="link-primary float-end text-decoration-underline">Mark as all read</a> -->
             <h5>
               All Notification
-              <span class="badge bg-warning rounded-pill ms-1">{{notifications.length}}</span>
+              <span class="badge bg-warning rounded-pill ms-1">{{notifications.length + preventiveNotifications.length}}</span>
             </h5>
           </div>
           <ng-scrollbar style="height: calc(100vh - 215px)" visibility="hover">
@@ -37,8 +37,23 @@
                     </div>
                     <div class="flex-grow-1 ms-1">
                       <span class="float-end text-muted">2 min ago</span>
-                      <h5><span (click)="openPopUp(content2,notify)">Error {{notify.error_code}}</span></h5>
+                      <h5><span (click)="openPopUp(content2,notify,'error')">Error {{notify.error_code}}</span></h5>
                       <p class="text-body fs-6">{{notify.error_desc}} </p>
+                      <div class="badge rounded-pill bg-light-danger">Unread</div>
+                      <div class="badge rounded-pill bg-light-warning">New</div>
+                    </div>
+                  </div>
+                </a>
+                <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
+                  <div  class="d-flex">
+                    <div class="flex-shrink-0">
+                      <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                      <div class="user-avtar bg-light-danger"><i class="ti ti-tool"></i></div>
+                    </div>
+                    <div class="flex-grow-1 ms-1">
+                      <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
+                      <h5><span (click)="openPopUp(content3,prevent,'pm')">Preventive Maintenace: {{prevent.component}}</span></h5>
+                      <p class="text-body fs-6">{{prevent.maintenanceDesc}} </p>
                       <div class="badge rounded-pill bg-light-danger">Unread</div>
                       <div class="badge rounded-pill bg-light-warning">New</div>
                     </div>
@@ -180,6 +195,19 @@
 	<div class="modal-body">
     <div [innerHTML]="selectedErrrorDesc.tableHtml">.</div>
     <div [innerHTML]="selectedErrrorDesc.description">.</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>
+
+<ng-template #content3 let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title"><strong>Preventive Maintenace - {{selectedPm.component}}</strong></h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body pm-body">
+    <div [innerHTML]="selectedPm.maintenanceReccomend">.</div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

@@ -14,6 +14,9 @@ export class NavRightComponent implements OnInit{
   notifications= [];
   selectedErrrorDesc;
   errrorDescData;
+  preventiveNotifications=[];
+  preventiveNotificationsData=[];
+  selectedPm;
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 
@@ -24,11 +27,24 @@ export class NavRightComponent implements OnInit{
         this.notifications.push(data);
       }else{
         this.notifications = [];
+        this.setPreventiveNotifications();
       }
     });
+    this.getPreventiveNotifications();
     this.getErrorDescData();
   }
 
+  getPreventiveNotifications(){
+    this.http.get<any[]>('/assets/sample-data/preventive-maintanence.json').subscribe(data => {
+      this.preventiveNotificationsData = data;
+      this.setPreventiveNotifications();
+    });
+  }
+
+  setPreventiveNotifications(){
+    console.log(this.preventiveNotificationsData);
+    this.preventiveNotifications = this.preventiveNotificationsData;
+  }
   
   getErrorDescData(){
     this.http.get<any[]>('/assets/sample-data/error-description.json').subscribe(data => {
@@ -86,11 +102,16 @@ export class NavRightComponent implements OnInit{
       this.selectedErrrorDesc = selectedErrrorDesc;
   }
 
-  openPopUp(content: TemplateRef<any>, tableData) {
-    if(tableData.error_code !== 'No Error'){
-      this.setErrorDesc(tableData);
+  openPopUp(content: TemplateRef<any>, tableData, type: string) {
+    if(type === 'error'){
+      if(tableData.error_code !== 'No Error'){
+        this.setErrorDesc(tableData);
+      }
+      this.modalService.open(content, { size: 'lg' });
+    }else{
+      this.selectedPm = tableData;
+      this.modalService.open(content, { size: 'lg' });
     }
-		this.modalService.open(content, { size: 'lg' });
 	}
 
 

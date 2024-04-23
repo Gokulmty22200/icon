@@ -98,19 +98,19 @@ isScatterReady: boolean = false;
       if(item.Impact){
       switch (item.Impact.toLowerCase()) {
         case 'critical':
-          impactValue = 0;
+          impactValue = 4;
           break;
         case 'high':
-          impactValue = 1;
+          impactValue = 3;
           break;
         case 'moderate':
-          impactValue = 3;
+          impactValue = 1;
           break;
         case 'medium':
           impactValue = 2;
           break;
         case 'low':
-          impactValue = 4;
+          impactValue = 0;
           break;
         default:
           impactValue = 0;
@@ -196,15 +196,15 @@ isScatterReady: boolean = false;
         labels: {
           show: true,
           formatter: function(val) {
-            if(val == '1'){
-              return 'High';
-            }else if(val == '3'){
-              return 'Moderate';
-            }else if(val == '2'){
-              return 'Medium';
-            }else if(val == '4'){
+            if(val == '0'){
               return 'Low';
-            }else if(val == '0'){
+            }else if(val == '1'){
+              return 'Moderate';
+            }else if(val == '3'){
+              return 'Medium';
+            }else if(val == '2'){
+              return 'High';
+            }else if(val == '4'){
               return 'Critical';
             }else{
               return parseFloat(val).toFixed(1)
