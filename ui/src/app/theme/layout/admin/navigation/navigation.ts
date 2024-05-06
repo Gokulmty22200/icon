@@ -52,7 +52,7 @@ const NavigationItems = [
       },
       {
         id: 'talkTo Mri',
-        title: 'Talk to MRI',
+        title: 'MRI Assistant',
         type: 'item',
         classes: 'nav-item',
         url: '/talk-to-mri',
@@ -61,7 +61,7 @@ const NavigationItems = [
       },
       {
         id: 'auditTrial',
-        title: 'Audit Trial',
+        title: 'Audit Trail',
         type: 'item',
         classes: 'nav-item',
         url: '/audit-trial',
