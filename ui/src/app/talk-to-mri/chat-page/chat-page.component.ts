@@ -84,6 +84,7 @@ export class ChatPageComponent {
         this.scrollToChat();
 
         this.inProcess = false;
+        localStorage.setItem('fileUploadStatus',JSON.stringify(true));
 
         //Disabled as file upload is not required. 
 
@@ -169,10 +170,13 @@ export class ChatPageComponent {
 
   loadChatData() {
     const chatDataString = localStorage.getItem('chatData');
-    if (chatDataString) {
+    const fileUploadStatus = localStorage.getItem('fileUploadStatus');
+    if (chatDataString || fileUploadStatus) {
       this.isnewUser = false;
       this.overlayVisible = false;
-      this.chatMessages = JSON.parse(chatDataString);
+      if(JSON.parse(chatDataString)){
+        this.chatMessages = JSON.parse(chatDataString);
+      }
       this.scrollToBottom();
     }
   }

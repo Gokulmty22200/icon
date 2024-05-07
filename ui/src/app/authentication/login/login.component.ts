@@ -30,8 +30,8 @@ export default class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['mriadmin', Validators.required],
-      password: ['admin', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -39,6 +39,7 @@ export default class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
       if(this.allowedUsers.some(user => user.userName === credentials.username && user.password === credentials.password)){
+        localStorage.setItem('User',JSON.stringify({user:credentials.username, activity:'LogIn',date: this.getCurrentDateFormatted(),time: this.getCurrentDateTime()}));
         this.router.navigate(['/home']);
       }else{
         this.showError = true;
@@ -46,5 +47,32 @@ export default class LoginComponent implements OnInit {
     } else {
       this.showError = true;
     }
+  }
+
+
+  getCurrentDateFormatted(): string {
+    const date = new Date();
+    const day = this.addZero(date.getDate());
+    const month = this.addZero(date.getMonth() + 1);
+    const year = date.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  }
+
+  getCurrentDateTime(): string {
+    const date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let minutesAdded: string;
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight
+    minutesAdded = this.addZero(minutes);
+    const formattedTime = `${hours}:${minutesAdded} ${ampm}`;
+    return formattedTime;
+  }
+
+  addZero(value: number): string {
+    return value < 10 ? '0' + value : '' + value;
   }
 }

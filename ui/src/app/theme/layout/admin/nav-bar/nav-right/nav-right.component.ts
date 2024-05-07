@@ -42,7 +42,6 @@ export class NavRightComponent implements OnInit{
   }
 
   setPreventiveNotifications(){
-    console.log(this.preventiveNotificationsData);
     this.preventiveNotifications = this.preventiveNotificationsData;
   }
   

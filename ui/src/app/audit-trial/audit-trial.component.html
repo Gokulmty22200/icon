@@ -17,10 +17,11 @@
          <tbody>
             <tr>
                 <td class="center-align">1</td>
-                <td class="center-align">mriadmin</td>
-                <td class="center-align">User logged in</td>
-                <td class="center-align">18/04/2024</td>
-                <td class="center-align">10:00 AM</td>
+                <td class="center-align">{{userData.user}}</td>
+                <td *ngIf="userData.activity === 'LogIn'" class="center-align">User logged In</td>
+                <td *ngIf="userData.activity === 'LogOut'" class="center-align">User logged Out</td>
+                <td class="center-align">{{userData.date}}</td>
+                <td class="center-align">{{userData.time}}</td>
               </tr>
               <tr>
                 <td class="center-align">2</td>
