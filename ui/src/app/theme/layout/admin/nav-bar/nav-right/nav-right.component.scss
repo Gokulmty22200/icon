@@ -95,3 +95,44 @@ ol { list-style-type: decimal; margin-left: 20px; }
   border-radius: 5px;
   margin-bottom: 20px;
   }
+
+  .nav-tabs {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .nav-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .nav-link {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .nav-link.active {
+    background-color: #e0d7f0;
+    color: #673ab7;
+    border-color: #e0d7f0;
+  }
+
+  .nav-link:hover {
+    background-color: #0056b3;
+    color: #fff;
+    border-color: #0056b3;
+  }
+
+  .list-group-item-action {
+    cursor: pointer;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .p-3 {
+    padding: 1rem;
+  }

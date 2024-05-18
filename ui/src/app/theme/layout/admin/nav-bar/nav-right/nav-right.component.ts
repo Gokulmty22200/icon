@@ -17,6 +17,7 @@ export class NavRightComponent implements OnInit{
   preventiveNotifications=[];
   preventiveNotificationsData=[];
   selectedPm;
+  active = 1;
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 

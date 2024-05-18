@@ -356,4 +356,12 @@ export class DashboardComponent implements OnInit {
     this.isLineReady = true;
   }
 
+  displayMonths(event){
+    const year = event.target.value;
+    if(year === '2024'){
+      this.monthsData = this.monthsData.slice(0, 4);
+    }else {
+      this.monthsData = Object.values(MONTHS);
+    }
+  }
 }

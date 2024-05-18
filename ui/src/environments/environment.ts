@@ -7,7 +7,7 @@ import packageInfo from '../../package.json';
 export const environment = {
   appVersion: packageInfo.version,
   production: false,
-  apiUrl: 'https://mri-predictive-analytics.onrender.com/mri'
+  apiUrl: 'https://mri-advanced-analytics.onrender.com/mri'
 };
 
 /*

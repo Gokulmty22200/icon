@@ -61,14 +61,18 @@ export class MriPerformanceComponent implements OnInit{
     let selectedErrrorDesc;
     this.sharedService.getMRIPerformance(this.dataCount)
           .subscribe((response: any) => {
-            if(response.data.current_data.error_code !== 'No Error'){
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == response.data.current_data.error_code);
-              response.data.current_data.error_desc = selectedErrrorDesc.title;
-              this.sharedService.setTableData(response.data.current_data);
-            }
-            this.sampleData.unshift(response.data);
-            if (this.sampleData.length > 50) {
-            this.sampleData.splice(-1, 1);
+            console.log(response);
+            if(response.meta.state !== 'ERROR'){
+              if(response.data.machine_data.error_code !== 'No Error'){
+                selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
+                console.log(response.data.machine_data.error_code);
+                response.data.machine_data.error_desc = selectedErrrorDesc.title;
+                this.sharedService.setTableData(response.data.machine_data);
+              }
+              this.sampleData.unshift(response.data);
+              if (this.sampleData.length > 50) {
+              this.sampleData.splice(-1, 1);
+              }
             }
         },
         error =>{
@@ -85,30 +89,30 @@ export class MriPerformanceComponent implements OnInit{
 
   setErrorDesc(tableData){
     let replacements: { [key: string]: string }= {
-      "Date_value": tableData.current_data.Date,
-      "scan_type": tableData.current_data.scan_type,
-      "scan_time": tableData.current_data.scan_time,
-      "snr_data": tableData.current_data.snr,
-      "drift_hz": tableData.current_data.drift_hz,
-      "drift_ppm": tableData.current_data.drift_ppm,
-      "grad_perf": tableData.current_data.grad_perf,
-      "coil_type": tableData.current_data.coil_type,
-      "error_temp": tableData.current_data.error_temp,
-      "sys_temp": tableData.current_data.sys_temp,
-      "cyro_boiloff": tableData.current_data.cyro_boiloff,
-      "rf_power": tableData.current_data.rf_power,
-      "grad_temp": tableData.current_data.grad_temp,
-      "grad_current": tableData.current_data.grad_current,
-      "x_axis_pos": tableData.current_data.x_axis_pos,
-      "y_axis_pos": tableData.current_data.y_axis_pos,
-      "z_axis_pos": tableData.current_data.z_axis_pos,
-      "error_code": tableData.current_data.error_code
+      "Date_value": tableData.machine_data.Date,
+      "scan_type": tableData.machine_data.scan_type,
+      "scan_time": tableData.machine_data.scan_time,
+      "snr_data": tableData.machine_data.snr,
+      "drift_hz": tableData.machine_data.drift_hz,
+      "drift_ppm": tableData.machine_data.drift_ppm,
+      "grad_perf": tableData.machine_data.grad_perf,
+      "coil_type": tableData.machine_data.coil_type,
+      "error_temp": tableData.machine_data.error_temp,
+      "sys_temp": tableData.machine_data.sys_temp,
+      "cyro_boiloff": tableData.machine_data.cyro_boiloff,
+      "rf_power": tableData.machine_data.rf_power,
+      "grad_temp": tableData.machine_data.grad_temp,
+      "grad_current": tableData.machine_data.grad_current,
+      "x_axis_pos": tableData.machine_data.x_axis_pos,
+      "y_axis_pos": tableData.machine_data.y_axis_pos,
+      "z_axis_pos": tableData.machine_data.z_axis_pos,
+      "error_code": tableData.machine_data.error_code
     };
     let replacedTitle;
     let replacedText;
     let replacedTable;
     let selectedErrrorDesc;
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.current_data.error_code);
+      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
       if(selectedErrrorDesc.isTitleChangeRequied){
         replacedTitle = selectedErrrorDesc.title.replace(
           /scan_type/g,
@@ -134,7 +138,7 @@ export class MriPerformanceComponent implements OnInit{
   }
 
   openLg(content: TemplateRef<any>, tableData) {
-    if(tableData.current_data.error_code !== 'No Error'){
+    if(tableData.machine_data.error_code !== 'No Error'){
       this.setErrorDesc(tableData);
     }
 		this.modalService.open(content, { size: 'lg' });

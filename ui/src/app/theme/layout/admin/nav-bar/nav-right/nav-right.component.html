@@ -21,6 +21,52 @@
           <ng-scrollbar style="height: calc(100vh - 215px)" visibility="hover">
             <div class="dropdown-header px-0 text-wrap">
               <div class="list-group list-group-flush w-100">
+
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                  <li [ngbNavItem]="1" class="nav-item">
+                    <button ngbNavLink class="nav-link">Error</button>
+                    <ng-template ngbNavContent>
+                      <div *ngIf="notifications.length === 0" class="text-center p-3">No Notifications to Show</div>
+                      <a *ngFor="let notify of notifications" class="list-group-item list-group-item-action">
+                        <div class="d-flex" (click)="openPopUp(content2,notify,'error')">
+                          <div class="flex-shrink-0">
+                            <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                            <div class="user-avtar bg-light-warning"><i class="ti ti-alert-circle"></i></div>
+                          </div>
+                          <div class="flex-grow-1 ms-1">
+                            <span class="float-end text-muted">2 min ago</span>
+                            <h5><span>Error {{notify.error_code}}</span></h5>
+                            <p class="text-body fs-6">{{notify.error_desc}}</p>
+                            <div class="badge rounded-pill bg-light-danger">Unread</div>
+                            <div class="badge rounded-pill bg-light-warning">New</div>
+                          </div>
+                        </div>
+                      </a>
+                    </ng-template>
+                  </li>
+                  <li [ngbNavItem]="2" class="nav-item">
+                    <button ngbNavLink class="nav-link">Maintenance</button>
+                    <ng-template ngbNavContent>
+                      <div *ngIf="preventiveNotifications.length === 0" class="text-center p-3">No Notifications to Show</div>
+                      <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
+                        <div class="d-flex" (click)="openPopUp(content3,prevent,'pm')">
+                          <div class="flex-shrink-0">
+                            <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                            <div class="user-avtar bg-light-danger"><i class="ti ti-tool"></i></div>
+                          </div>
+                          <div class="flex-grow-1 ms-1">
+                            <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
+                            <h5><span >Preventive Maintenance: {{prevent.component}}</span></h5>
+                            <p class="text-body fs-6">{{prevent.maintenanceDesc}}</p>
+                            <div class="badge rounded-pill bg-light-danger">Unread</div>
+                            <div class="badge rounded-pill bg-light-warning">New</div>
+                          </div>
+                        </div>
+                      </a>
+                    </ng-template>
+                  </li>
+                </ul>
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
                 <!-- <div class="list-group-item">
                   <select class="form-select">
                     <option value="all">All Notification</option>
@@ -29,36 +75,7 @@
                     <option value="other">Other</option>
                   </select>
                 </div> -->
-                <a *ngFor="let notify of notifications" class="list-group-item list-group-item-action">
-                  <div  class="d-flex">
-                    <div class="flex-shrink-0">
-                      <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
-                      <div class="user-avtar bg-light-warning"><i class="ti ti-alert-circle"></i></div>
-                    </div>
-                    <div class="flex-grow-1 ms-1">
-                      <span class="float-end text-muted">2 min ago</span>
-                      <h5><span (click)="openPopUp(content2,notify,'error')">Error {{notify.error_code}}</span></h5>
-                      <p class="text-body fs-6">{{notify.error_desc}} </p>
-                      <div class="badge rounded-pill bg-light-danger">Unread</div>
-                      <div class="badge rounded-pill bg-light-warning">New</div>
-                    </div>
-                  </div>
-                </a>
-                <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
-                  <div  class="d-flex">
-                    <div class="flex-shrink-0">
-                      <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
-                      <div class="user-avtar bg-light-danger"><i class="ti ti-tool"></i></div>
-                    </div>
-                    <div class="flex-grow-1 ms-1">
-                      <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
-                      <h5><span (click)="openPopUp(content3,prevent,'pm')">Preventive Maintenace: {{prevent.component}}</span></h5>
-                      <p class="text-body fs-6">{{prevent.maintenanceDesc}} </p>
-                      <div class="badge rounded-pill bg-light-danger">Unread</div>
-                      <div class="badge rounded-pill bg-light-warning">New</div>
-                    </div>
-                  </div>
-                </a>
+               
                 <!-- <a class="list-group-item list-group-item-action">
                   <div class="d-flex">
                     <div class="flex-shrink-0">

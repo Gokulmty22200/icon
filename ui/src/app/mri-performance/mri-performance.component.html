@@ -13,6 +13,7 @@
             <thead>
               <tr class="text-muted">
                 <th>Date</th>
+                <th>Unique Scan ID</th>
                 <th>Scan Type</th>
                 <th>Scan Time</th>
                 <th>SNR (dB)</th>
@@ -23,40 +24,76 @@
                 <th>Error Temp (°C)</th>
                 <th>Sys Temp (°C)</th>
                 <th>Cryo Boiloff (liters/hour)</th>
-                <th>RF Power (%)</th>
-                <th>Grad Temp (°C)</th>
-                <th>Grad Current (A)</th>
-                <th>X Axis Pos (mm)</th>
-                <th>Y Axis Pos (mm)</th>
-                <th>Z Axis Pos (mm)</th>
+                <th>Slice Thickness</th>
+                <th>Reason</th>
+                <th>Maintenance Code</th>
                 <th>Error Code</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{item.current_data.Date}}</td>
-                <td>{{item.current_data.scan_type}}</td>
-                <td>{{item.current_data.scan_time}}</td>
-                <td>{{item.current_data.snr}}</td>
-                <td>{{item.current_data.drift_hz}}</td>
-                <td>{{item.current_data.drift_ppm}}</td>
-                <td>{{item.current_data.grad_perf}}</td>
-                <td>{{item.current_data.coil_type}}</td>
-                <td>{{item.current_data.error_temp}}</td>
-                <td>{{item.current_data.sys_temp}}</td>
-                <td>{{item.current_data.cyro_boiloff}}</td>
-                <td>{{item.current_data.rf_power}}</td>
-                <td>{{item.current_data.grad_temp}}</td>
-                <td>{{item.current_data.grad_current}}</td>
-                <td>{{item.current_data.x_axis_pos}}</td>
-                <td>{{item.current_data.y_axis_pos}}</td>
-                <td>{{item.current_data.z_axis_pos}}</td>
-                <td>{{item.current_data.error_code}}</td>
+                <td>{{item.machine_data.Date}}</td>
+                <td>{{item.machine_data.unique_scanid}}</td>
+                <td>{{item.machine_data.scan_type}}</td>
+                <td>{{item.machine_data.scan_time}}</td>
+                <td>{{item.machine_data.snr}}</td>
+                <td>{{item.machine_data.drift_hz}}</td>
+                <td>{{item.machine_data.drift_ppm}}</td>
+                <td>{{item.machine_data.grad_perf}}</td>
+                <td>{{item.machine_data.coil_type}}</td>
+                <td>{{item.machine_data.error_temp}}</td>
+                <td>{{item.machine_data.sys_temp}}</td>
+                <td>{{item.machine_data.cryo_boiloff}}</td>
+                <td>{{item.machine_data.slice_thickness}}</td>
+                <td>{{item.machine_data.reason}}</td>
+                <td>{{item.machine_data.maintenance_code}}</td>
+                <td>{{item.machine_data.error_code}}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="heading">Current Status: <i *ngIf="item.current_data.error_code !== 'No Error'" class="text-blue ti ti-info-circle info" (click)="openLg(content,item)"></i></p>
+        <hr class="my-4 bg-secondary">
+  <p class="heading">Scan Data</p>
+        <div class="table-responsive table">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr class="text-muted">
+                <th>Echo Time</th>
+                <th>Field Of View Frequency</th>
+                <th>Field Of View Phase</th>
+                <th>Matrix Frequency</th>
+                <th>Matrix Phase</th>
+                <th>No. Of Excitation</th>
+                <th>Phase Direction</th>
+                <th>Repetition Time</th>
+                <th>Scan Direction</th>
+                <th>Scan Sequence</th>
+                <th>Slice Gap</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              @for (scan of item.scan_data; track scan) {
+                <tr>
+                  <td>{{scan.echo_time}}</td>
+                  <td>{{scan.field_of_view_freq}}</td>
+                  <td>{{scan.field_of_view_phase}}</td>
+                  <td>{{scan.matrix_freq}}</td>
+                  <td>{{scan.matrix_phase}}</td>
+                  <td>{{scan.no_of_excitation}}</td>
+                  <td>{{scan.phase_direction}}</td>
+                  <td>{{scan.repetition_time}}</td>
+                  <td>{{scan.scan_direction}}</td>
+                  <td>{{scan.scan_sequence}}</td>
+                  <td>{{scan.slice_gap}}</td>
+                  
+                </tr>
+              }
+              
+            </tbody>
+          </table>
+        </div>
+        <p class="heading">Current Status: <i *ngIf="item.machine_data.error_code !== 'No Error'" class="text-blue ti ti-info-circle info" (click)="openLg(content,item)"></i></p>
         <span style="font-size: 1.2em;"><div [innerHTML]="item.llm_output">.</div></span>
         <hr class="my-4 seperation bg-secondary">
       </div>

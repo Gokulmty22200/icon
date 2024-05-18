@@ -13,7 +13,7 @@
               </select>
             </div>
             <div class="col-auto">
-              <select class="form-select custom-select custom-select-sm" formControlName="year">
+              <select (change)= "displayMonths($event)" class="form-select custom-select custom-select-sm" formControlName="year">
                 <option *ngFor="let year of yearData" [value]="year">{{year}}</option>
               </select>
             </div>
