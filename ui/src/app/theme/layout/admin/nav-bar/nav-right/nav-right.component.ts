@@ -18,6 +18,7 @@ export class NavRightComponent implements OnInit{
   preventiveNotificationsData=[];
   selectedPm;
   active = 1;
+  tableData;
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 
@@ -53,31 +54,32 @@ export class NavRightComponent implements OnInit{
   }
 
   setErrorDesc(tableData){
+    this.tableData = tableData;
     let replacements: { [key: string]: string }= {
-      "Date_value": tableData.Date,
-      "scan_type": tableData.scan_type,
-      "scan_time": tableData.scan_time,
-      "snr_data": tableData.snr,
-      "drift_hz": tableData.drift_hz,
-      "drift_ppm": tableData.drift_ppm,
-      "grad_perf": tableData.grad_perf,
-      "coil_type": tableData.coil_type,
-      "error_temp": tableData.error_temp,
-      "sys_temp": tableData.sys_temp,
-      "cyro_boiloff": tableData.cyro_boiloff,
-      "rf_power": tableData.rf_power,
-      "grad_temp": tableData.grad_temp,
-      "grad_current": tableData.grad_current,
-      "x_axis_pos": tableData.x_axis_pos,
-      "y_axis_pos": tableData.y_axis_pos,
-      "z_axis_pos": tableData.z_axis_pos,
-      "error_code": tableData.error_code
+      "Date_value": tableData.machine_data.Date,
+      "scan_type": tableData.machine_data.scan_type,
+      "scan_time": tableData.machine_data.scan_time,
+      "snr_data": tableData.machine_data.snr,
+      "drift_hz": tableData.machine_data.drift_hz,
+      "drift_ppm": tableData.machine_data.drift_ppm,
+      "grad_perf": tableData.machine_data.grad_perf,
+      "coil_type": tableData.machine_data.coil_type,
+      "error_temp": tableData.machine_data.error_temp,
+      "sys_temp": tableData.machine_data.sys_temp,
+      "cyro_boiloff": tableData.machine_data.cyro_boiloff,
+      "rf_power": tableData.machine_data.rf_power,
+      "grad_temp": tableData.machine_data.grad_temp,
+      "grad_current": tableData.machine_data.grad_current,
+      "x_axis_pos": tableData.machine_data.x_axis_pos,
+      "y_axis_pos": tableData.machine_data.y_axis_pos,
+      "z_axis_pos": tableData.machine_data.z_axis_pos,
+      "error_code": tableData.machine_data.error_code
     };
     let replacedTitle;
     let replacedText;
     let replacedTable;
     let selectedErrrorDesc;
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.error_code);
+      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
       if(selectedErrrorDesc.isTitleChangeRequied){
         replacedTitle = selectedErrrorDesc.title.replace(
           /scan_type/g,
@@ -104,7 +106,7 @@ export class NavRightComponent implements OnInit{
 
   openPopUp(content: TemplateRef<any>, tableData, type: string) {
     if(type === 'error'){
-      if(tableData.error_code !== 'No Error'){
+      if(tableData.machine_data.error_code !== 'No Error'){
         this.setErrorDesc(tableData);
       }
       this.modalService.open(content, { size: 'lg' });

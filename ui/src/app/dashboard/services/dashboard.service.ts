@@ -35,7 +35,6 @@ export class DashboardService {
       scanInputParams = {};
     }
     const headers = new HttpHeaders();
-    // Make multiple API calls here
     const apiCall1 = this.httpService.post(this.apiUrl + `/get-total-scan-count`, inputParams, {headers});
     const apiCall2 = this.httpService.post(this.apiUrl + `/get-avg-scan-time`, scanInputParams, {headers});
     const apiCall3 = this.httpService.post(this.apiUrl + `/get-total-error-count`, inputParams, {headers});
@@ -56,7 +55,6 @@ export class DashboardService {
       inputParams = {};
     }
     const headers = new HttpHeaders();
-    // Make multiple API calls here
     const apiCall1 = this.httpService.post(this.apiUrl + `/get-code-wise-error-count`, inputParams, {headers});
     const apiCall2 = this.httpService.post(this.apiUrl + `/get-avg-snr`, inputParams, {headers});
     const apiCall3 = this.httpService.post(this.apiUrl + `/get-top-scan-data`, inputParams, {headers});
@@ -75,9 +73,23 @@ export class DashboardService {
     return this.httpService.post(this.apiUrl + `/get-avg-scan-time`, scanInputParams, {headers});
   }
 
+  getPreventiveData(timelineData, isEmpty): Observable<any[]> {
+    let inputParams;
+    if(!isEmpty){
+      inputParams = {'month':timelineData.month, 'year':timelineData.year};
+    }
+    else {
+      inputParams = {};
+    }
+    const headers = new HttpHeaders();
+    const apiCall1 = this.httpService.post(this.apiUrl + `/get-reason-count`, inputParams, {headers});
+    const apiCall2 = this.httpService.post(this.apiUrl + `/get-maintenance-code-wise-count`, inputParams, {headers});
+    return forkJoin([apiCall1,apiCall2]);
+  }
+
    testAPI() {
     const headers = new HttpHeaders();
-    const apiCall2 = this.httpService.post(this.apiUrl + `/get-top-scan-data`, {'month':'07','year':'2023'}, {headers});
+    const apiCall2 = this.httpService.post(this.apiUrl + `/get-reason-count`, {'month':'07','year':'2023'}, {headers});
     // Make multiple API calls here
     // const apiCall2 = this.httpService.get(this.apiUrl + `/get-month-wise-error-count`, {headers});
     return apiCall2;

@@ -27,3 +27,13 @@ export interface RefineData {
   name: string;
   data: [number, number][];
 }
+
+export interface PrevDataItem {
+  COUNT: number;
+  REASON: string;
+}
+
+export interface MaintenanceCodes {
+  COUNT: number;
+  MAINTENANCE_CODE: string;
+}

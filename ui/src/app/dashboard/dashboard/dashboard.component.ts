@@ -6,7 +6,7 @@ import ApexCharts from 'apexcharts';
 
 import {MONTHS, YEARS, SCANTYPE } from '../../shared/constants/dashboard-constants';
 import { DashboardService } from '../services/dashboard.service';
-import { DataItem, DataItemMonthly, ScanData } from '../interface/dashboard.interface';
+import { DataItem, DataItemMonthly, MaintenanceCodes, PrevDataItem, ScanData } from '../interface/dashboard.interface';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -19,7 +19,9 @@ import {
   ApexStroke,
   ApexTooltip,
   ApexNonAxisChartSeries,
-  ApexFill
+  ApexFill,
+  ApexYAxis,
+  ApexTitleSubtitle
 } from 'ng-apexcharts';
 import { forkJoin } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -61,11 +63,14 @@ export class DashboardComponent implements OnInit {
   @ViewChild('growthChart') growthChart: ChartComponent;
   chartOptions: Partial<ChartOptions>;
   @ViewChild('bajajchart') bajajchart: ChartComponent;
+  @ViewChild("columnChart") columnChart: ChartComponent;
   chartOptions1: Partial<ChartOptions>;
   lineChart: Partial<ChartOptions>;
   pieChart: Partial<PieChartOptions>;
   scatterChart: Partial<ChartOptions>;
   barChart: Partial<ChartOptions>;
+  colChartOptions: Partial<ChartOptions>;
+  prevPieChart: Partial<PieChartOptions>;
 
   monthsData = Object.values(MONTHS);
   yearData = Object.values(YEARS);
@@ -80,6 +85,8 @@ export class DashboardComponent implements OnInit {
   isBarReady: boolean = false;
   isPieReady: boolean = false;
   isLineReady: boolean = false;
+  isPrevPieReady: boolean = false;
+  isColChartReady: boolean = false;
   avgScanCount: number = 0;
   scanListGroup = [];
   monthChart: any;
@@ -91,6 +98,8 @@ export class DashboardComponent implements OnInit {
     // this.renderPieChart();
     // this.renderBarChart();
     // this.renderLineChart();
+    // this.renderColChart();
+    // this.renderPrevPieChart();
   }
 
   // Life cycle events
@@ -119,9 +128,10 @@ export class DashboardComponent implements OnInit {
     const isEmpty = this.isObjectEmpty(timelineData);
     forkJoin([
       this.dashboardService.getDashboardCardsData(timelineData, isEmpty),
-      this.dashboardService.getDashboardReportsData(timelineData, isEmpty)
+      this.dashboardService.getDashboardReportsData(timelineData, isEmpty),
+      this.dashboardService.getPreventiveData(timelineData, isEmpty)
     ]).subscribe(
-      ([response1,response2]) => {
+      ([response1,response2,response3]:[any,any,any]) => {
         this.totalScanCount = response1[0].data[0].SCAN_COUNT !== null ? response1[0].data[0].SCAN_COUNT : 0;
         this.avgScanTime =  this.convertSecondsToMinutesAndSeconds(response1[1]?.data[0]?.SCAN_TIME);
         this.avgScanCount = response1[1]?.data[0]?.COUNT;
@@ -129,6 +139,8 @@ export class DashboardComponent implements OnInit {
         this.sortCodeWiseErrorData(response2[0].data);
         this.sortAvgSnrData(response2[1].data);
         this.sortTopData(response2[2].data);
+        this.sortPrevPieData(response3[0].data);
+        this.sortColChartData(response3[1].data)
         this.selectedScanType = SCANTYPE.ABDOMEN;
       },
       error => {
@@ -186,7 +198,6 @@ export class DashboardComponent implements OnInit {
       errorCodeArray.push('Error '+ item.ERROR_CODE);
     });
     this.renderPieChart(countArray,errorCodeArray);
-    
   }
 
   renderPieChart(countArray=[],errorCodeArray=[]){
@@ -217,18 +228,6 @@ export class DashboardComponent implements OnInit {
     };
     this.isPieReady = true;
   }
-
-  // testapi() {
-  //   this.dashboardService.testAPI()
-  //     .subscribe((response: any) => {
-  //      console.log('Test',response)
-  //     },
-  //     error =>{
-  //       //Error handling pending
-  //       console.log(error);
-  //     });
-    
-  // }
 
   getMonthErrorCount(){
     this.dashboardService.getMonthErrorCount()
@@ -354,6 +353,158 @@ export class DashboardComponent implements OnInit {
       }
     };
     this.isLineReady = true;
+  }
+
+  sortColChartData(errorData:{ [key: number]: MaintenanceCodes }){
+    const countArray: number[] = [];
+    const maintenanceCodes: string[] = [];
+    
+    Object.values(errorData).forEach(item => {
+      countArray.push(item.COUNT);
+      maintenanceCodes.push(item.MAINTENANCE_CODE);
+    });
+    this.renderColChart(countArray,maintenanceCodes);
+  }
+
+  renderColChart(countArray=[],maintenanceCodes=[]){
+    this.colChartOptions = {
+      series: [
+        {
+          name: "Incidents",
+          data: countArray
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "top" // top, center, bottom
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function(val) {
+          return val + "";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      },
+
+      xaxis: {
+        categories: maintenanceCodes,
+        position: "top",
+        labels: {
+          offsetY: -18
+        },
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: "gradient",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        labels: {
+          show: false,
+          formatter: function(val) {
+            return val + "";
+          }
+        }
+      },
+      title: {
+        text: "Preventive Maintenance Codes",
+        floating: false,
+        offsetY: 330,
+        align: "center",
+        style: {
+          color: "#444"
+        }
+      }
+    };
+    this.isColChartReady = true;
+  }
+
+  sortPrevPieData(errorData:{ [key: number]: PrevDataItem }){
+    const countArray: number[] = [];
+    const reasonArray: string[] = [];
+    
+    Object.values(errorData).forEach(item => {
+      countArray.push(item.COUNT);
+      reasonArray.push(item.REASON);
+    });
+    this.renderPrevPieChart(countArray,reasonArray);
+  }
+
+  renderPrevPieChart(countArray=[],reasonArray=[]){
+    this.prevPieChart = {
+      series: countArray,
+      chart: {
+        width: 900,
+        height: 800,
+        type: "pie"
+      },
+      title: {
+        text: "Monthly Preventive Maintenance Reasons Count",
+        align: "center"
+      },
+      labels: reasonArray,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this.isPrevPieReady = true;
   }
 
   displayMonths(event){

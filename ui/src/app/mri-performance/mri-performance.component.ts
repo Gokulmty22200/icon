@@ -24,6 +24,7 @@ export class MriPerformanceComponent implements OnInit{
   selectedErrrorDesc: any = null;
   dataCount: number = 1;
   intervalSubscription: Subscription | undefined;
+  tableData;
 
   constructor(private http: HttpClient,private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private sharedService: SharedService) { }
 
@@ -61,13 +62,11 @@ export class MriPerformanceComponent implements OnInit{
     let selectedErrrorDesc;
     this.sharedService.getMRIPerformance(this.dataCount)
           .subscribe((response: any) => {
-            console.log(response);
             if(response.meta.state !== 'ERROR'){
               if(response.data.machine_data.error_code !== 'No Error'){
                 selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
-                console.log(response.data.machine_data.error_code);
                 response.data.machine_data.error_desc = selectedErrrorDesc.title;
-                this.sharedService.setTableData(response.data.machine_data);
+                this.sharedService.setTableData(response.data);
               }
               this.sampleData.unshift(response.data);
               if (this.sampleData.length > 50) {
@@ -88,6 +87,7 @@ export class MriPerformanceComponent implements OnInit{
   }
 
   setErrorDesc(tableData){
+    this.tableData = tableData;
     let replacements: { [key: string]: string }= {
       "Date_value": tableData.machine_data.Date,
       "scan_type": tableData.machine_data.scan_type,

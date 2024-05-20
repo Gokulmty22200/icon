@@ -188,4 +188,43 @@
       </div>
     </div>
     </div>
+    <div class="col-xl-12 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="columnChart">
+            <apx-chart *ngIf="isColChartReady"
+              [series]="colChartOptions.series"
+              [chart]="colChartOptions.chart"
+              [dataLabels]="colChartOptions.dataLabels"
+              [plotOptions]="colChartOptions.plotOptions"
+              [yaxis]="colChartOptions.yaxis"
+              [xaxis]="colChartOptions.xaxis"
+              [fill]="colChartOptions.fill"
+              [title]="colChartOptions.title"
+            ></apx-chart>
+            <div *ngIf="!isColChartReady" class="spinner-container" role="status">
+              <div class="spinner-border" role="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div  id="growthChart">
+            <apx-chart *ngIf="isPrevPieReady"
+            [series]="prevPieChart.series"
+            [chart]="prevPieChart.chart"
+            [labels]="prevPieChart.labels"
+            [responsive]="prevPieChart.responsive"
+            [title]="prevPieChart.title"
+          ></apx-chart>
+          <div *ngIf="!isPrevPieReady" class="spinner-container" role="status">
+            <div class="spinner-border" role="status"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>

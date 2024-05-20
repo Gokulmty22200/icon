@@ -43,7 +43,6 @@ export class SharedService {
 
   getMRIPerformance(count: number) {
     const headers = new HttpHeaders();
-    // let inputParams = { 'count': count}
     return this.httpService.get<any>(this.apiUrl + `/get-mri-performance-data?count=`+count);
   }
 

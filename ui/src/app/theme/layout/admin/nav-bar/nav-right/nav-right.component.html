@@ -24,7 +24,7 @@
 
                 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                   <li [ngbNavItem]="1" class="nav-item">
-                    <button ngbNavLink class="nav-link">Error</button>
+                    <h5><button ngbNavLink class="nav-link">Error</button></h5>
                     <ng-template ngbNavContent>
                       <div *ngIf="notifications.length === 0" class="text-center p-3">No Notifications to Show</div>
                       <a *ngFor="let notify of notifications" class="list-group-item list-group-item-action">
@@ -35,8 +35,8 @@
                           </div>
                           <div class="flex-grow-1 ms-1">
                             <span class="float-end text-muted">2 min ago</span>
-                            <h5><span>Error {{notify.error_code}}</span></h5>
-                            <p class="text-body fs-6">{{notify.error_desc}}</p>
+                            <h5><span>Error {{notify.machine_data.error_code}}</span></h5>
+                            <p class="text-body fs-6">{{notify.machine_data.error_desc}}</p>
                             <div class="badge rounded-pill bg-light-danger">Unread</div>
                             <div class="badge rounded-pill bg-light-warning">New</div>
                           </div>
@@ -45,7 +45,7 @@
                     </ng-template>
                   </li>
                   <li [ngbNavItem]="2" class="nav-item">
-                    <button ngbNavLink class="nav-link">Maintenance</button>
+                    <h5><button ngbNavLink class="nav-link">Maintenance</button></h5>
                     <ng-template ngbNavContent>
                       <div *ngIf="preventiveNotifications.length === 0" class="text-center p-3">No Notifications to Show</div>
                       <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
@@ -210,7 +210,95 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
-    <div [innerHTML]="selectedErrrorDesc.tableHtml">.</div>
+    <!-- <div [innerHTML]="selectedErrrorDesc.tableHtml">.</div> -->
+    <div>
+      <p class="heading">Machine Data</p>
+        <div class="table-responsive table">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr class="text-muted">
+                <th>Date</th>
+                <th>Unique Scan ID</th>
+                <th>Scan Type</th>
+                <th>Scan Time</th>
+                <th>SNR (dB)</th>
+                <th>Drift (Hz)</th>
+                <th>Drift PPM (ppm)</th>
+                <th>Grad Perf (G/cm/ms)</th>
+                <th>Coil Type</th>
+                <th>Error Temp (°C)</th>
+                <th>Sys Temp (°C)</th>
+                <th>Cryo Boiloff (liters/hour)</th>
+                <th>Slice Thickness</th>
+                <th>Reason</th>
+                <th>Maintenance Code</th>
+                <th>Error Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{tableData.machine_data.Date}}</td>
+                <td>{{tableData.machine_data.unique_scanid}}</td>
+                <td>{{tableData.machine_data.scan_type}}</td>
+                <td>{{tableData.machine_data.scan_time}}</td>
+                <td>{{tableData.machine_data.snr}}</td>
+                <td>{{tableData.machine_data.drift_hz}}</td>
+                <td>{{tableData.machine_data.drift_ppm}}</td>
+                <td>{{tableData.machine_data.grad_perf}}</td>
+                <td>{{tableData.machine_data.coil_type}}</td>
+                <td>{{tableData.machine_data.error_temp}}</td>
+                <td>{{tableData.machine_data.sys_temp}}</td>
+                <td>{{tableData.machine_data.cryo_boiloff}}</td>
+                <td>{{tableData.machine_data.slice_thickness}}</td>
+                <td>{{tableData.machine_data.reason}}</td>
+                <td>{{tableData.machine_data.maintenance_code}}</td>
+                <td>{{tableData.machine_data.error_code}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <p class="heading">Sequential Scan Data</p>
+        <div class="table-responsive table">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr class="text-muted">
+                <th>Scan Sequence</th>
+                <th>Repetition Time</th>
+                <th>Echo Time</th>
+                <th>FoV Freq</th>
+                <th>FoV Phase</th>
+                <th>Slice Gap</th>
+                <th>Matrix Phase</th>
+                <th>Matrix Freq</th>
+                <th>Phase Direction</th>
+                <th>NOE</th>
+                <th>Scan Direction</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              @for (scan of tableData.scan_data; track scan) {
+                <tr>
+                  <td>{{scan.scan_sequence}}</td>
+                  <td>{{scan.repetition_time}}</td>
+                  <td>{{scan.echo_time}}</td>
+                  <td>{{scan.field_of_view_freq}}</td>
+                  <td>{{scan.field_of_view_phase}}</td>
+                  <td>{{scan.slice_gap}}</td>
+                  <td>{{scan.matrix_phase}}</td>
+                  <td>{{scan.matrix_freq}}</td>
+                  <td>{{scan.phase_direction}}</td>
+                  <td>{{scan.no_of_excitation}}</td>
+                  <td>{{scan.scan_direction}}</td>
+                </tr>
+              }
+              
+            </tbody>
+          </table>
+        </div>
+        <hr class="my-4 bg-secondary">
+    </div>
     <div [innerHTML]="selectedErrrorDesc.description">.</div>
 	</div>
 	<div class="modal-footer">
