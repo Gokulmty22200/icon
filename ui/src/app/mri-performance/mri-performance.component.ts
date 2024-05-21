@@ -145,7 +145,7 @@ export class MriPerformanceComponent implements OnInit{
       "z_axis_pos": tableData.machine_data.z_axis_pos,
       "error_code": tableData.machine_data.error_code,
       "slice_thickness": tableData.machine_data.slice_thickness,
-      "scan_time_minutes": (tableData.machine_data.scan_time / 60).toString()
+      "scan_minutes": (tableData.machine_data.scan_time / 60).toString()
 
     };
     let replacedTitle;
@@ -163,7 +163,7 @@ export class MriPerformanceComponent implements OnInit{
       }
       if(selectedErrrorDesc.isDescChangeRequied){
         replacedText = selectedErrrorDesc.description.replace(
-          /snr_data|scan_type|drift_hz|drift_ppm|coil_type|slice_thickness|grad_perf|sys_temp|cyro_boiloff|scan_time|scan_time_minutes/g,
+          /snr_data|scan_type|drift_hz|drift_ppm|coil_type|slice_thickness|grad_perf|sys_temp|cyro_boiloff|scan_time|scan_minutes/g,
           match => replacements[match]
         );
         selectedErrrorDesc.description = replacedText;
