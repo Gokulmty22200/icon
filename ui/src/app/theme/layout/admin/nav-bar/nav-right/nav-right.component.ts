@@ -75,7 +75,7 @@ export class NavRightComponent implements OnInit{
       "z_axis_pos": tableData.machine_data.z_axis_pos,
       "error_code": tableData.machine_data.error_code,
       "slice_thickness": tableData.machine_data.slice_thickness,
-      "scan_minutes": (tableData.machine_data.scan_time / 60).toString()
+      "scan_minutes": (tableData.machine_data.scan_time / 60).toFixed(2)
 
     };
     let replacedTitle;
