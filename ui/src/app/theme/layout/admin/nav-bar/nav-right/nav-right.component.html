@@ -24,7 +24,10 @@
 
                 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                   <li [ngbNavItem]="1" class="nav-item">
-                    <h5><button ngbNavLink class="nav-link">Error</button></h5>
+                    <h5><button ngbNavLink class="nav-link">Error
+                      <span class="badge bg-danger rounded-pill ms-1 badge-sm">{{notifications.length}}</span>
+                    </button>
+                    </h5>
                     <ng-template ngbNavContent>
                       <div *ngIf="notifications.length === 0" class="text-center p-3">No Notifications to Show</div>
                       <a *ngFor="let notify of notifications" class="list-group-item list-group-item-action">
@@ -45,18 +48,22 @@
                     </ng-template>
                   </li>
                   <li [ngbNavItem]="2" class="nav-item">
-                    <h5><button ngbNavLink class="nav-link">Maintenance</button></h5>
+                    <h5><button ngbNavLink class="nav-link">Maintenance
+                      <span class="badge bg-primary rounded-pill ms-1 badge-sm">{{preventiveNotifications.length}}</span>
+
+                    </button>
+                    </h5>
                     <ng-template ngbNavContent>
                       <div *ngIf="preventiveNotifications.length === 0" class="text-center p-3">No Notifications to Show</div>
                       <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
                         <div class="d-flex" (click)="openPopUp(content3,prevent,'pm')">
                           <div class="flex-shrink-0">
                             <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
-                            <div class="user-avtar bg-light-danger"><i class="ti ti-tool"></i></div>
+                            <div class="user-avtar bg-light-primary"><i class="ti ti-tool"></i></div>
                           </div>
                           <div class="flex-grow-1 ms-1">
                             <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
-                            <h5><span >Preventive Maintenance: {{prevent.component}}</span></h5>
+                            <h5><span >Predictive Maintenance: {{prevent.component}}</span></h5>
                             <p class="text-body fs-6">{{prevent.maintenanceDesc}}</p>
                             <div class="badge rounded-pill bg-light-danger">Unread</div>
                             <div class="badge rounded-pill bg-light-warning">New</div>

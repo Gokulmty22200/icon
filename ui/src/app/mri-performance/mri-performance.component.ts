@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { catchError, interval, mergeMap, Subscription, throwError, timer } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -20,7 +20,7 @@ export class MriPerformanceComponent implements OnInit{
   private modalService = inject(NgbModal);
   sampleData: any[] = [];
   fetchId = 1;
-  errrorDescData: any;
+  errorDescData: any;
   selectedErrrorDesc: any = null;
   dataCount: number = 1;
   intervalSubscription: Subscription | undefined;
@@ -36,7 +36,7 @@ export class MriPerformanceComponent implements OnInit{
     if (storedCount) {
       this.dataCount = parseInt(storedCount, 10);
     }
-    this.startCounter();
+    // this.startCounter();
     this.sharedService.setTableData('Clear');
 
     setTimeout(() => {
@@ -58,31 +58,68 @@ export class MriPerformanceComponent implements OnInit{
     });
   }
 
-  setupTable(){
-    let selectedErrrorDesc;
-    this.sharedService.getMRIPerformance(this.dataCount)
+  // setupTable(){
+  //   let selectedErrrorDesc;
+  //   this.sharedService.getMRIPerformance(this.dataCount)
+  //         .subscribe((response: any) => {
+  //           if(response.meta.state !== 'ERROR'){
+  //             if(response.data.machine_data.error_code !== 'No Error'){
+  //               selectedErrrorDesc = this.errorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
+  //               response.data.machine_data.error_desc = selectedErrrorDesc.title;
+  //               this.sharedService.setTableData(response.data);
+  //             }
+  //             this.sampleData.unshift(response.data);
+  //             if (this.sampleData.length > 50) {
+  //             this.sampleData.splice(-1, 1);
+  //             }
+  //           }
+  //       },
+  //       error =>{
+  //         //Error handling pending
+  //         console.log(error);
+  //       });
+  // }
+
+
+  setupTable() {
+    let selectedErrorDesc;
+    const performNextRequest = (count) => {
+      if (count <= 50) {
+        this.sharedService.getMRIPerformance(count)
+          .pipe(
+            catchError(error => {
+              console.log(error);
+              return timer(1000).pipe(
+                mergeMap(() => throwError(error))
+              );
+            })
+          )
           .subscribe((response: any) => {
-            if(response.meta.state !== 'ERROR'){
-              if(response.data.machine_data.error_code !== 'No Error'){
-                selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
-                response.data.machine_data.error_desc = selectedErrrorDesc.title;
+            if (response.meta.state !== 'ERROR') {
+              if (response.data.machine_data.error_code !== 'No Error') {
+                selectedErrorDesc = this.errorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
+                if(selectedErrorDesc)
+                  response.data.machine_data.error_desc = selectedErrorDesc.title;
                 this.sharedService.setTableData(response.data);
               }
               this.sampleData.unshift(response.data);
               if (this.sampleData.length > 50) {
-              this.sampleData.splice(-1, 1);
+                this.sampleData.pop();
               }
+              timer(2000).subscribe(() => performNextRequest(count + 1));
+            } else if(response.meta.state === 'ERROR'){
+              performNextRequest(count + 1);
             }
-        },
-        error =>{
-          //Error handling pending
-          console.log(error);
-        });
-  }
+          });
+      }
+    };
+    performNextRequest(1);
+}
+
 
   getErrorDescData(){
     this.http.get<any[]>('/assets/sample-data/error-description.json').subscribe(data => {
-      this.errrorDescData = data;
+      this.errorDescData = data;
     });
   }
 
@@ -99,20 +136,23 @@ export class MriPerformanceComponent implements OnInit{
       "coil_type": tableData.machine_data.coil_type,
       "error_temp": tableData.machine_data.error_temp,
       "sys_temp": tableData.machine_data.sys_temp,
-      "cyro_boiloff": tableData.machine_data.cyro_boiloff,
+      "cyro_boiloff": tableData.machine_data.cryo_boiloff,
       "rf_power": tableData.machine_data.rf_power,
       "grad_temp": tableData.machine_data.grad_temp,
       "grad_current": tableData.machine_data.grad_current,
       "x_axis_pos": tableData.machine_data.x_axis_pos,
       "y_axis_pos": tableData.machine_data.y_axis_pos,
       "z_axis_pos": tableData.machine_data.z_axis_pos,
-      "error_code": tableData.machine_data.error_code
+      "error_code": tableData.machine_data.error_code,
+      "slice_thickness": tableData.machine_data.slice_thickness,
+      "scan_time_minutes": (tableData.machine_data.scan_time / 60).toString()
+
     };
     let replacedTitle;
     let replacedText;
     let replacedTable;
     let selectedErrrorDesc;
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
+      selectedErrrorDesc = this.errorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
       if(selectedErrrorDesc.isTitleChangeRequied){
         replacedTitle = selectedErrrorDesc.title.replace(
           /scan_type/g,
@@ -123,7 +163,7 @@ export class MriPerformanceComponent implements OnInit{
       }
       if(selectedErrrorDesc.isDescChangeRequied){
         replacedText = selectedErrrorDesc.description.replace(
-          /snr_data|scan_type|drift_hz|drift_ppm|coil_type/g,
+          /snr_data|scan_type|drift_hz|drift_ppm|coil_type|slice_thickness|grad_perf|sys_temp|cyro_boiloff|scan_time|scan_time_minutes/g,
           match => replacements[match]
         );
         selectedErrrorDesc.description = replacedText;

@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit {
   barChart: Partial<ChartOptions>;
   colChartOptions: Partial<ChartOptions>;
   prevPieChart: Partial<PieChartOptions>;
+  prevMinorPieChart: Partial<PieChartOptions>;
 
   monthsData = Object.values(MONTHS);
   yearData = Object.values(YEARS);
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
   isLineReady: boolean = false;
   isPrevPieReady: boolean = false;
   isColChartReady: boolean = false;
+  isMinorPrevPieReady: boolean = false;
   avgScanCount: number = 0;
   scanListGroup = [];
   monthChart: any;
@@ -139,7 +141,8 @@ export class DashboardComponent implements OnInit {
         this.sortCodeWiseErrorData(response2[0].data);
         this.sortAvgSnrData(response2[1].data);
         this.sortTopData(response2[2].data);
-        this.sortPrevPieData(response3[0].data);
+        this.sortPrevPieData(response3[0].data, 'medium');
+        this.sortPrevPieData(response3[2].data, 'minor');
         this.sortColChartData(response3[1].data)
         this.selectedScanType = SCANTYPE.ABDOMEN;
       },
@@ -321,7 +324,7 @@ export class DashboardComponent implements OnInit {
     this.lineChart = {
       series: [
         {
-          name: "Scans",
+          name: "SNR(Avg.)",
           data: lineData
         }
       ],
@@ -358,8 +361,13 @@ export class DashboardComponent implements OnInit {
   sortColChartData(errorData:{ [key: number]: MaintenanceCodes }){
     const countArray: number[] = [];
     const maintenanceCodes: string[] = [];
+
+    const sortedErrorData = Object.values(errorData).sort((a, b) => {
+      const order = { 'low': 0, 'minor': 1, 'medium': 2, 'high': 3 };
+      return order[a.MAINTENANCE_CODE.toLowerCase()] - order[b.MAINTENANCE_CODE.toLowerCase()];
+  });
     
-    Object.values(errorData).forEach(item => {
+    Object.values(sortedErrorData).forEach(item => {
       countArray.push(item.COUNT);
       maintenanceCodes.push(item.MAINTENANCE_CODE);
     });
@@ -427,17 +435,7 @@ export class DashboardComponent implements OnInit {
         }
       },
       fill: {
-        type: "gradient",
-        gradient: {
-          shade: "light",
-          type: "horizontal",
-          shadeIntensity: 0.25,
-          gradientToColors: undefined,
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [50, 0, 100, 100]
-        }
+        opacity: 1
       },
       yaxis: {
         axisBorder: {
@@ -454,7 +452,7 @@ export class DashboardComponent implements OnInit {
         }
       },
       title: {
-        text: "Preventive Maintenance Codes",
+        text: "Preventive Maintenance Recommendations",
         floating: false,
         offsetY: 330,
         align: "center",
@@ -466,7 +464,7 @@ export class DashboardComponent implements OnInit {
     this.isColChartReady = true;
   }
 
-  sortPrevPieData(errorData:{ [key: number]: PrevDataItem }){
+  sortPrevPieData(errorData:{ [key: number]: PrevDataItem }, type: string){
     const countArray: number[] = [];
     const reasonArray: string[] = [];
     
@@ -474,19 +472,28 @@ export class DashboardComponent implements OnInit {
       countArray.push(item.COUNT);
       reasonArray.push(item.REASON);
     });
-    this.renderPrevPieChart(countArray,reasonArray);
+    if(type === 'medium' ){
+      const title: string = "Preventive Maintenance Reasons - Medium";
+      this.prevPieChart = this.renderPrevPieChart(countArray,reasonArray, title);
+      this.isPrevPieReady = true;
+    }
+    else if(type === 'minor') {
+      const title: string = "Preventive Maintenance Reasons - Minor";
+      this.prevMinorPieChart = this.renderPrevPieChart(countArray,reasonArray, title);
+      this.isMinorPrevPieReady = true;
+
+    }
   }
 
-  renderPrevPieChart(countArray=[],reasonArray=[]){
-    this.prevPieChart = {
+  renderPrevPieChart(countArray=[],reasonArray=[], title): Partial<PieChartOptions>{
+    return {
       series: countArray,
       chart: {
-        width: 900,
-        height: 800,
+        width: 600,
         type: "pie"
       },
       title: {
-        text: "Monthly Preventive Maintenance Reasons Count",
+        text: title,
         align: "center"
       },
       labels: reasonArray,
@@ -504,7 +511,7 @@ export class DashboardComponent implements OnInit {
         }
       ]
     };
-    this.isPrevPieReady = true;
+    
   }
 
   displayMonths(event){

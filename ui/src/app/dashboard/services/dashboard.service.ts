@@ -82,9 +82,11 @@ export class DashboardService {
       inputParams = {};
     }
     const headers = new HttpHeaders();
-    const apiCall1 = this.httpService.post(this.apiUrl + `/get-reason-count`, inputParams, {headers});
+    // const apiCall1 = this.httpService.post(this.apiUrl + `/get-reason-count`, inputParams, {headers});
+    const apiCall1 = this.httpService.post(this.apiUrl + `/get-reason-count-medium`, inputParams, {headers});
     const apiCall2 = this.httpService.post(this.apiUrl + `/get-maintenance-code-wise-count`, inputParams, {headers});
-    return forkJoin([apiCall1,apiCall2]);
+    const apiCall3 = this.httpService.post(this.apiUrl + `/get-reason-count-minor`, inputParams, {headers});
+    return forkJoin([apiCall1,apiCall2, apiCall3]);
   }
 
    testAPI() {
