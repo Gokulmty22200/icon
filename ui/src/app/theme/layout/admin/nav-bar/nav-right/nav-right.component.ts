@@ -13,7 +13,7 @@ export class NavRightComponent implements OnInit{
   private modalService = inject(NgbModal);
   notifications= [];
   selectedErrrorDesc;
-  errrorDescData;
+  errorDescData;
   preventiveNotifications=[];
   preventiveNotificationsData=[];
   selectedPm;
@@ -49,7 +49,7 @@ export class NavRightComponent implements OnInit{
   
   getErrorDescData(){
     this.http.get<any[]>('/assets/sample-data/error-description.json').subscribe(data => {
-      this.errrorDescData = data;
+      this.errorDescData = data;
     });
   }
 
@@ -66,20 +66,23 @@ export class NavRightComponent implements OnInit{
       "coil_type": tableData.machine_data.coil_type,
       "error_temp": tableData.machine_data.error_temp,
       "sys_temp": tableData.machine_data.sys_temp,
-      "cyro_boiloff": tableData.machine_data.cyro_boiloff,
+      "cyro_boiloff": tableData.machine_data.cryo_boiloff,
       "rf_power": tableData.machine_data.rf_power,
       "grad_temp": tableData.machine_data.grad_temp,
       "grad_current": tableData.machine_data.grad_current,
       "x_axis_pos": tableData.machine_data.x_axis_pos,
       "y_axis_pos": tableData.machine_data.y_axis_pos,
       "z_axis_pos": tableData.machine_data.z_axis_pos,
-      "error_code": tableData.machine_data.error_code
+      "error_code": tableData.machine_data.error_code,
+      "slice_thickness": tableData.machine_data.slice_thickness,
+      "scan_time_minutes": (tableData.machine_data.scan_time / 60).toString()
+
     };
     let replacedTitle;
     let replacedText;
     let replacedTable;
     let selectedErrrorDesc;
-      selectedErrrorDesc = this.errrorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
+      selectedErrrorDesc = this.errorDescData.find((entry: any) => entry.errorType == tableData.machine_data.error_code);
       if(selectedErrrorDesc.isTitleChangeRequied){
         replacedTitle = selectedErrrorDesc.title.replace(
           /scan_type/g,
@@ -90,7 +93,7 @@ export class NavRightComponent implements OnInit{
       }
       if(selectedErrrorDesc.isDescChangeRequied){
         replacedText = selectedErrrorDesc.description.replace(
-          /snr_data|scan_type|drift_hz|drift_ppm|coil_type/g,
+          /snr_data|scan_type|drift_hz|drift_ppm|coil_type|slice_thickness|grad_perf|sys_temp|cyro_boiloff|scan_time|scan_time_minutes/g,
           match => replacements[match]
         );
         selectedErrrorDesc.description = replacedText;
