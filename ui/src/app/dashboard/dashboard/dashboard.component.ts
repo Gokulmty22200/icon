@@ -111,8 +111,8 @@ export class DashboardComponent implements OnInit {
     // this.testapi();
 
     this.sortForm = this.fb.group({
-      month: ['12'], // Default value for month
-      year: ['2023'] // Default value for year
+      month: ['04'], // Default value for month
+      year: ['2024'] // Default value for year
     });
    
   }
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
     return Object.keys(obj).length === 0;
   }
 
-  getDashboardData(timelineData={month: '12', year: '2023'}){
+  getDashboardData(timelineData={month: '04', year: '2024'}){
     const isEmpty = this.isObjectEmpty(timelineData);
     forkJoin([
       this.dashboardService.getDashboardCardsData(timelineData, isEmpty),
@@ -281,7 +281,7 @@ export class DashboardComponent implements OnInit {
         text: "Previous Year Error Report"
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'July', 'Aug','Sep','Oct','Nov','Dec'],
+        categories: ['Apr 23', 'Jun 23', 'July 23', 'Aug 23','Sep 23','Oct 23','Nov 23','Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', ],
         labels: {
           formatter: function(val) {
             return val;
