@@ -37,7 +37,7 @@ export class MriPerformanceComponent implements OnInit{
       this.dataCount = parseInt(storedCount, 10);
     }
     // this.startCounter();
-    this.sharedService.setTableData('Clear');
+    // this.sharedService.setTableData('Clear');
 
     setTimeout(() => {
       this.cdr.detectChanges();
@@ -83,6 +83,7 @@ export class MriPerformanceComponent implements OnInit{
 
   setupTable() {
     let selectedErrorDesc;
+    let maintenanceCode;
     const performNextRequest = (count) => {
       if (count <= 50) {
         this.sharedService.getMRIPerformance(count)
@@ -100,6 +101,13 @@ export class MriPerformanceComponent implements OnInit{
                 selectedErrorDesc = this.errorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
                 if(selectedErrorDesc)
                   response.data.machine_data.error_desc = selectedErrorDesc.title;
+                response.data.dataType = 'Error';
+                this.sharedService.setTableData(response.data);
+              }
+              if (response.data.machine_data.maintenance_code !== 'Success' && response.data.machine_data.maintenance_code !== 'NA') {
+                // maintenanceCode = this.errorDescData.find((entry: any) => entry.maintanence_code == response.data.machine_data.maintanence_code);
+                // if(maintenanceCode)
+                  response.data.dataType = 'MC';
                 this.sharedService.setTableData(response.data);
               }
               this.sampleData.unshift(response.data);

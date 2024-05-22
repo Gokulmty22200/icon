@@ -26,8 +26,16 @@ export class NavRightComponent implements OnInit{
   ngOnInit(): void {
     this.sharedService.tableData$.subscribe(data => {
       if(data && data !== 'Clear'){
-        this.notifications.push(data);
-      }else{
+        if(data.dataType === 'Error'){
+          const errorCodeExists = this.notifications.some(notification => notification.machine_data.error_code === data.machine_data.error_code);
+          if (!errorCodeExists) {
+            this.notifications.push(data);
+          }
+        } else if(data.dataType === 'MC'){
+        this.preventiveNotifications.push(data);
+      }
+      }
+      else{
         this.notifications = [];
         this.setPreventiveNotifications();
       }

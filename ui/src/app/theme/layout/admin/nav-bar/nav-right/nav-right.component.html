@@ -56,19 +56,36 @@
                     <ng-template ngbNavContent>
                       <div *ngIf="preventiveNotifications.length === 0" class="text-center p-3">No Notifications to Show</div>
                       <a *ngFor="let prevent of preventiveNotifications" class="list-group-item list-group-item-action">
-                        <div class="d-flex" (click)="openPopUp(content3,prevent,'pm')">
-                          <div class="flex-shrink-0">
-                            <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
-                            <div class="user-avtar bg-light-primary"><i class="ti ti-tool"></i></div>
+                        @if (prevent.maintenanceReccomend){
+                          <div class="d-flex" (click)="openPopUp(content3,prevent,'pm')">
+                            <div class="flex-shrink-0">
+                              <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                              <div class="user-avtar bg-light-primary"><i class="ti ti-tool"></i></div>
+                            </div>
+                            <div class="flex-grow-1 ms-1">
+                              <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
+                              <h5><span >Predictive Maintenance: {{prevent.component}}</span></h5>
+                              <p class="text-body fs-6">{{prevent.maintenanceDesc}}</p>
+                              <div class="badge rounded-pill bg-light-danger">Unread</div>
+                              <div class="badge rounded-pill bg-light-warning">New</div>
+                            </div>
                           </div>
-                          <div class="flex-grow-1 ms-1">
-                            <span class="float-end text-muted"><strong>{{prevent.maintenanceDays}} Days</strong> to go</span>
-                            <h5><span >Predictive Maintenance: {{prevent.component}}</span></h5>
-                            <p class="text-body fs-6">{{prevent.maintenanceDesc}}</p>
-                            <div class="badge rounded-pill bg-light-danger">Unread</div>
-                            <div class="badge rounded-pill bg-light-warning">New</div>
+                        } @else {
+                          <div class="d-flex">
+                            <div class="flex-shrink-0">
+                              <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
+                              <div class="user-avtar bg-light-warning"><i class="ti ti-info-circle"></i></div>
+                            </div>
+                            <div class="flex-grow-1 ms-1">
+                              <!-- <span class="float-end text-muted"><strong> Code {{prevent.maintenance_code}}</strong></span> -->
+                              <h5><span > {{prevent.machine_data.maintenance_code}}</span></h5>
+                              <p class="text-body fs-6">{{prevent.machine_data.reason}}</p>
+                              <div class="badge rounded-pill bg-light-danger">Unread</div>
+                              <div class="badge rounded-pill bg-light-warning">New</div>
+                            </div>
                           </div>
-                        </div>
+                        }
+                        
                       </a>
                     </ng-template>
                   </li>
@@ -265,7 +282,7 @@
           </table>
         </div>
         <hr class="my-4 bg-secondary">
-        <p class="heading">Sequential Scan Data</p>
+        <p class="heading">Scan Sequence Data</p>
         <div class="table-responsive table">
           <table class="table table-bordered table-striped">
             <thead>

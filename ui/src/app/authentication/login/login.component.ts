@@ -40,7 +40,7 @@ export default class LoginComponent implements OnInit {
       const credentials = this.loginForm.value;
       if(this.allowedUsers.some(user => user.userName === credentials.username && user.password === credentials.password)){
         localStorage.setItem('User',JSON.stringify({user:credentials.username, activity:'LogIn',date: this.getCurrentDateFormatted(),time: this.getCurrentDateTime()}));
-        this.router.navigate(['/home']);
+        this.router.navigate(['/mri-performance']);
       }else{
         this.showError = true;
       }
