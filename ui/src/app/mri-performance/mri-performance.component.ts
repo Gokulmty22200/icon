@@ -48,7 +48,7 @@ export class MriPerformanceComponent implements OnInit{
     this.dataCount = 1;
     this.intervalSubscription = interval(2000).subscribe(() => {
       this.dataCount++;
-      if (this.dataCount <= 50) {
+      if (this.dataCount <= 275) {
         // this.dataCount = 1;
       this.setupTable();
 
@@ -85,7 +85,7 @@ export class MriPerformanceComponent implements OnInit{
     let selectedErrorDesc;
     let maintenanceCode;
     const performNextRequest = (count) => {
-      if (count <= 50) {
+      if (count <= 275) {
         this.sharedService.getMRIPerformance(count)
           .pipe(
             catchError(error => {
@@ -97,7 +97,7 @@ export class MriPerformanceComponent implements OnInit{
           )
           .subscribe((response: any) => {
             if (response.meta.state !== 'ERROR') {
-              if (response.data.machine_data.error_code !== 'No Error') {
+              if (response.data.machine_data.error_code !== 'No Error' && response.data.machine_data.error_code !== 'NA') {
                 selectedErrorDesc = this.errorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
                 if(selectedErrorDesc)
                   response.data.machine_data.error_desc = selectedErrorDesc.title;
