@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { catchError, interval, mergeMap, Subscription, throwError, timer } from 'rxjs';
+import { Component, OnInit, inject, TemplateRef, ViewEncapsulation, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { catchError, interval, mergeMap, Subject, Subscription, takeUntil, throwError, timer } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -27,7 +27,9 @@ export class MriPerformanceComponent implements OnInit{
   tableData;
 
   constructor(private http: HttpClient,private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private sharedService: SharedService) { }
-
+  
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  
   ngOnInit(): void {
     this.getErrorDescData();
     this.setupTable();
@@ -93,7 +95,8 @@ export class MriPerformanceComponent implements OnInit{
               return timer(1000).pipe(
                 mergeMap(() => throwError(error))
               );
-            })
+            }),
+            takeUntil(this.ngUnsubscribe)
           )
           .subscribe((response: any) => {
             if (response.meta.state !== 'ERROR') {
@@ -114,7 +117,7 @@ export class MriPerformanceComponent implements OnInit{
               if (this.sampleData.length > 50) {
                 this.sampleData.pop();
               }
-              timer(2000).subscribe(() => performNextRequest(count + 1));
+              this.intervalSubscription = timer(2000).subscribe(() => performNextRequest(count + 1));
             } else if(response.meta.state === 'ERROR'){
               performNextRequest(count + 1);
             }
@@ -194,7 +197,10 @@ export class MriPerformanceComponent implements OnInit{
 
   ngOnDestroy() {
     if (this.intervalSubscription) {
+      console.log('Destroyed');
       this.intervalSubscription.unsubscribe();
+      this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
     }
   }
 }
