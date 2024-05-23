@@ -19,6 +19,7 @@ export class NavRightComponent implements OnInit{
   selectedPm;
   active = 1;
   tableData;
+  selectedMinor;
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 
@@ -121,12 +122,14 @@ export class NavRightComponent implements OnInit{
         this.setErrorDesc(tableData);
       }
       this.modalService.open(content, { size: 'lg' });
-    }else{
+    }else if(type === 'pm'){
       this.selectedPm = tableData;
+      this.modalService.open(content, { size: 'lg' });
+    } else {
+      this.selectedMinor = tableData;
       this.modalService.open(content, { size: 'lg' });
     }
 	}
-
 
   logout(){
     localStorage.clear();

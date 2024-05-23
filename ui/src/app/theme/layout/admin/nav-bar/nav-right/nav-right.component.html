@@ -71,7 +71,7 @@
                             </div>
                           </div>
                         } @else {
-                          <div class="d-flex">
+                          <div class="d-flex" (click)="openPopUp(content4,prevent,'minor')">
                             <div class="flex-shrink-0">
                               <!-- <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" /> -->
                               <div class="user-avtar bg-light-warning"><i class="ti ti-info-circle"></i></div>
@@ -337,6 +337,24 @@
 	</div>
 	<div class="modal-body pm-body">
     <div [innerHTML]="selectedPm.maintenanceReccomend">.</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>
+
+<ng-template #content4 let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title"><strong>Maintenance Code - {{selectedMinor.machine_data.maintenance_code}}</strong></h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body pm-body">
+    <div>{{selectedMinor.machine_data.reason}}.</div>
+    <hr class="my-4 seperation bg-secondary">
+
+    <div class="video-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFjNCzUv38?si=zw6w3H9Q5eh5YbkE&amp;start=11" frameborder="0" allowfullscreen></iframe>
+    </div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
