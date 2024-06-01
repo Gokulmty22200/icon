@@ -99,7 +99,8 @@ export class MriPerformanceComponent implements OnInit{
             takeUntil(this.ngUnsubscribe)
           )
           .subscribe((response: any) => {
-            if (response.meta.state !== 'ERROR' && response.meta.state) {
+            console.log(response.meta.state !== 'ERROR' && response.meta?.state);
+            if (response.meta.state !== 'ERROR' && response.meta?.state) {
               if (response.data.machine_data?.error_code !== 'No Error' && response.data.machine_data?.error_code !== 'NA') {
                 selectedErrorDesc = this.errorDescData.find((entry: any) => entry.errorType == response.data.machine_data.error_code);
                 if(selectedErrorDesc)
@@ -118,7 +119,7 @@ export class MriPerformanceComponent implements OnInit{
                 this.sampleData.pop();
               }
               this.intervalSubscription = timer(2000).subscribe(() => performNextRequest(count + 1));
-            } else if(response.meta.state === 'ERROR'){
+            } else if(response.meta.state === 'ERROR' || response.meta?.state === undefined){
               performNextRequest(count + 1);
             }
           });
