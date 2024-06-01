@@ -20,6 +20,7 @@ export class NavRightComponent implements OnInit{
   active = 1;
   tableData;
   selectedMinor;
+  minorErrorData;
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 
@@ -43,6 +44,7 @@ export class NavRightComponent implements OnInit{
     });
     this.getPreventiveNotifications();
     this.getErrorDescData();
+    this.getMinorDescData();
   }
 
   getPreventiveNotifications(){
@@ -126,10 +128,27 @@ export class NavRightComponent implements OnInit{
       this.selectedPm = tableData;
       this.modalService.open(content, { size: 'lg' });
     } else {
-      this.selectedMinor = tableData;
+      this.setMinorDesc(tableData);
       this.modalService.open(content, { size: 'lg' });
     }
 	}
+
+  getMinorDescData(): any{
+    this.http.get<any[]>('/assets/sample-data/minor-and-major-error-data.json').subscribe(data => {
+      this.minorErrorData = data;
+    });
+  }
+
+  setMinorDesc(tableData: any){
+    this.selectedMinor = this.minorErrorData.find((entry: any) => entry.error == tableData.machine_data.maintenance_code);
+    this.selectedMinor.steps = tableData.steps;
+    console.log(this.selectedMinor);
+  }
+
+  getMaintenanceName(code: string): string{
+    const entry = this.minorErrorData.find((entry: any) => entry.error === code);
+    return entry ? entry.title : 'NA';
+  }
 
   logout(){
     localStorage.clear();

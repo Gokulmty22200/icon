@@ -281,7 +281,7 @@ export class DashboardComponent implements OnInit {
         text: "Previous Year Error Report"
       },
       xaxis: {
-        categories: ['Apr 23', 'Jun 23', 'July 23', 'Aug 23','Sep 23','Oct 23','Nov 23','Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', ],
+        categories: ['Apr 23', 'May 23', 'Jun 23', 'July 23', 'Aug 23','Sep 23','Oct 23','Nov 23','Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', ],
         labels: {
           formatter: function(val) {
             return val;

@@ -78,7 +78,7 @@
                             </div>
                             <div class="flex-grow-1 ms-1">
                               <!-- <span class="float-end text-muted"><strong> Code {{prevent.maintenance_code}}</strong></span> -->
-                              <h5><span > {{prevent.machine_data.maintenance_code}}</span></h5>
+                              <h5><span > {{ getMaintenanceName(prevent.machine_data.maintenance_code) }} </span></h5>
                               <p class="text-body fs-6">{{prevent.machine_data.reason}}</p>
                               <div class="badge rounded-pill bg-light-danger">Unread</div>
                               <div class="badge rounded-pill bg-light-warning">New</div>
@@ -345,16 +345,20 @@
 
 <ng-template #content4 let-modal>
 	<div class="modal-header">
-		<h4 class="modal-title"><strong>Maintenance Code - {{selectedMinor.machine_data.maintenance_code}}</strong></h4>
+		<h4 class="modal-title"><strong>Maintenance Code - {{selectedMinor.error}} - {{selectedMinor.title}}</strong></h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body pm-body">
-    <div>{{selectedMinor.machine_data.reason}}.</div>
+    <div [innerHTML]="selectedMinor.desc">.</div>
     <hr class="my-4 seperation bg-secondary">
+    <div [innerHTML]="selectedMinor.steps">.</div>
+    <hr class="my-4 seperation bg-secondary">
+    @if(selectedMinor?.videoURL){
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFjNCzUv38?si=zw6w3H9Q5eh5YbkE&amp;start=11&amp;autoplay=1" allow="autoplay" frameborder="0" allowfullscreen></iframe>
+      </div>
+    }
 
-    <div class="video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/XeFjNCzUv38?si=zw6w3H9Q5eh5YbkE&amp;start=11&amp;autoplay=1" allow="autoplay" frameborder="0" allowfullscreen></iframe>
-    </div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

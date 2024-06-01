@@ -228,24 +228,6 @@
       </div>
     </div> -->
 
-    <div class="col-xl-8 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <div  id="growthChart">
-            <apx-chart *ngIf="isPrevPieReady"
-            [series]="prevPieChart.series"
-            [chart]="prevPieChart.chart"
-            [labels]="prevPieChart.labels"
-            [responsive]="prevPieChart.responsive"
-            [title]="prevPieChart.title"
-          ></apx-chart>
-          <div *ngIf="!isPrevPieReady" class="spinner-container" role="status">
-            <div class="spinner-border" role="status"></div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="col-xl-8 col-md-12">
       <div class="card">
@@ -265,4 +247,26 @@
         </div>
       </div>
     </div>
+    
+
+    <div class="col-xl-8 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div  id="growthChart">
+            <apx-chart *ngIf="isPrevPieReady"
+            [series]="prevPieChart.series"
+            [chart]="prevPieChart.chart"
+            [labels]="prevPieChart.labels"
+            [responsive]="prevPieChart.responsive"
+            [title]="prevPieChart.title"
+          ></apx-chart>
+          <div *ngIf="!isPrevPieReady" class="spinner-container" role="status">
+            <div class="spinner-border" role="status"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
   </div>
