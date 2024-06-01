@@ -324,6 +324,11 @@
         <hr class="my-4 bg-secondary">
     </div>
     <div [innerHTML]="selectedErrrorDesc.description">.</div>
+    @if(tableData.steps){
+      <div class="highlight-modal">
+        <div [innerHTML]="tableData.steps">.</div>
+      </div>
+    }
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
@@ -345,13 +350,18 @@
 
 <ng-template #content4 let-modal>
 	<div class="modal-header">
-		<h4 class="modal-title"><strong>Maintenance Code - {{selectedMinor.error}} - {{selectedMinor.title}}</strong></h4>
+		<h4 class="modal-title"><strong>{{selectedMinor.title}}</strong></h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body pm-body">
     <div [innerHTML]="selectedMinor.desc">.</div>
     <hr class="my-4 seperation bg-secondary">
-    <div [innerHTML]="selectedMinor.steps">.</div>
+    @if(selectedMinor.steps){
+      <div class="highlight-modal">
+        <div [innerHTML]="selectedMinor.steps">.</div>
+      </div>
+    }
+    
     <hr class="my-4 seperation bg-secondary">
     @if(selectedMinor?.videoURL){
       <div class="video-container">

@@ -92,7 +92,7 @@
             </tbody>
           </table>
         </div>
-        <p class="heading">Current Status: <i *ngIf="item.machine_data.error_code !== 'No Error' && item.machine_data.error_code !== 'NA'" class="text-blue ti ti-info-circle info" (click)="openLg(content,item)"></i></p>
+        <p class="heading">Status: <i *ngIf="item.machine_data.error_code !== 'No Error' && item.machine_data.error_code !== 'NA'" class="text-blue ti ti-info-circle info" (click)="openLg(content,item)"></i></p>
         <span style="font-size: 1.2em;"><div [innerHTML]="item.llm_output">.</div></span>
         <hr class="my-4 seperation bg-secondary">
       </div>
