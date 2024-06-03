@@ -3,154 +3,162 @@
         "id":1,
         "error":"Minor1",
         "title":"Reduced Image Quality",
-        "desc":"<p><strong>Possible Causes of Reduced Image Quality:</strong></p> <ul type='disc'> <li><strong>Drift:</strong> The drift values (0.99 Hz and 0.4497 ppm) are slightly high. High drift can cause blurring and artifacts in the final image.</li> <li><strong>SNR (Signal-to-Noise Ratio):</strong> While the SNR (18.86 dB) isn't exceptionally low, a higher SNR would improve image clarity.</li> </ul> <p><strong>Recommendations:</strong></p> <ol start='1' type='1'> <li><strong>Reduce Drift:</strong></li> <ul type='circle'> <li>Check magnet shimming: Proper magnet shimming minimizes magnetic field inhomogeneity, which can lead to drift. A qualified engineer should perform shimming if necessary.</li> <li>Gradient system calibration: Regularly calibrate the gradient system to ensure accurate field strength and minimize drift.</li> </ul> <li><strong>Improve SNR:</strong></li> <ul type='circle'> <li>Increase number of excitations: This will take more scan time (already at 840 seconds) but improve signal strength. However, weigh the benefit against patient comfort and scan time constraints.</li> <li>Optimize coil placement: Ensure the hand coil is positioned optimally for the specific scan sequence and anatomy being imaged.</li> <li>Consider using a different coil: If a dedicated high-sensitivity hand coil is available, it might improve SNR.</li> </ul> </ol> <p><strong>Additional factors to consider:</strong></p> <ul type='disc'> <li><strong>Scan sequence:</strong> While the scan sequence (axial T2 FSE) is appropriate for hand imaging, discuss with the radiologist if alternative sequences could be beneficial for the specific clinical question.</li> <li><strong>Other parameters:</strong> Review other parameters like echo time (TE) and repetition time (TR) to see if adjustments could be made to optimize image quality without compromising scan time excessively.</li> </ul>"
+        "desc":"<p><strong>Possible Causes of Reduced Image Quality:</strong></p> <ul type='disc'> <li><strong>Drift:</strong> The drift values (0.99 Hz and 0.4497 ppm) are slightly high. High drift can cause blurring and artifacts in the final image.</li> <li><strong>SNR (Signal-to-Noise Ratio):</strong> While the SNR (18.86 dB) isn't exceptionally low, a higher SNR would improve image clarity.</li> </ul> <p><strong>Recommendations:</strong></p> <ol start='1' type='1'> <li><strong>Reduce Drift:</strong></li> <ul type='circle'> <li>Check magnet shimming: Proper magnet shimming minimizes magnetic field inhomogeneity, which can lead to drift. A qualified engineer should perform shimming if necessary.</li> <li>Gradient system calibration: Regularly calibrate the gradient system to ensure accurate field strength and minimize drift.</li> </ul> <li><strong>Improve SNR:</strong></li> <ul type='circle'> <li>Increase number of excitations: This will take more scan time (already at 840 seconds) but improve signal strength. However, weigh the benefit against patient comfort and scan time constraints.</li> <li>Optimize coil placement: Ensure the hand coil is positioned optimally for the specific scan sequence and anatomy being imaged.</li> <li>Consider using a different coil: If a dedicated high-sensitivity hand coil is available, it might improve SNR.</li> </ul> </ol> <p><strong>Additional factors to consider:</strong></p> <ul type='disc'> <li><strong>Scan sequence:</strong> While the scan sequence (axial T2 FSE) is appropriate for hand imaging, discuss with the radiologist if alternative sequences could be beneficial for the specific clinical question.</li> <li><strong>Other parameters:</strong> Review other parameters like echo time (TE) and repetition time (TR) to see if adjustments could be made to optimize image quality without compromising scan time excessively.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":2,
         "error":"Minor2",
         "title":"Prolonged scan time and Slight Overheating",
-        "desc":"<p>The analysis of the MRI machine data indicated a maintenance code of Minor2, which corresponds to 'Prolonged scan time and Slight Overheating.'</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Inefficient scan sequence</li> <li>Hardware malfunction</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Inefficient scan sequence</li> <li>Hardware malfunction</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":3,
         "error":"Minor3",
         "title":"Slight single degradation",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Variation in radiofrequency (RF) coil tuning.</li> <li>Slight instability in the main magnetic field (B0).</li> <li>Imperfect shimming.</li> <li>Miscalibration of gradients.</li> </ul> "
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Variation in radiofrequency (RF) coil tuning.</li> <li>Slight instability in the main magnetic field (B0).</li> <li>Imperfect shimming.</li> <li>Miscalibration of gradients.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":4,
         "error":"Minor4",
         "title":"Possible Overheating",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Ambient room temperature exceeding recommended limits</li> <li>Insufficient chilled water flow rate</li> <li>Faulty cooling system component (e.g., pump, chiller)</li> <li>Blocked air filters within the MRI system</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Ambient room temperature exceeding recommended limits</li> <li>Insufficient chilled water flow rate</li> <li>Faulty cooling system component (e.g., pump, chiller)</li> <li>Blocked air filters within the MRI system</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":1
     },
     {
         "id":5,
         "error":"Minor5",
         "title":"Minor Frequency Drift",
-        "desc":"<p>Based on the extracted maintenance code 'Minor5' and the provided definitions, here's the analysis:</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Minor fluctuations in the magnetic field strength.</li> <li>Instability in the main magnetic field.</li> <li>Temperature variations within the system.</li> </ul> "
+        "desc":" <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Minor fluctuations in the magnetic field strength.</li> <li>Instability in the main magnetic field.</li> <li>Temperature variations within the system.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":2
     },
     {
         "id":6,
         "error":"Minor6",
         "title":"System Slight Overheating",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Increased ambient room temperature</li> <li>Faulty cooling system component (e.g., water pump, chiller)</li> <li>Inefficient air circulation around the MRI machine</li> <li>Dust buildup in ventilation filters</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Increased ambient room temperature</li> <li>Faulty cooling system component (e.g., water pump, chiller)</li> <li>Inefficient air circulation around the MRI machine</li> <li>Dust buildup in ventilation filters</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":1
     },
     {
         "id":7,
         "error":"Minor7",
         "title":"Inconsistent Imaging",
-        "desc":"<p>Based on the provided data, the maintenance code extracted from the MRI data is Minor7, which corresponds to 'Inconsistent Imaging' according to the maintenance code definitions.</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Hardware instability: This could be caused by issues with the gradient coils, RF system, or image acquisition system.</li> <li>Software glitches: Bugs or errors in the MRI software can lead to inconsistencies in image acquisition.</li> <li>Patient motion: Movement during the scan can cause artifacts and inconsistencies in the final image.</li> <li>Environmental factors: Excessive vibration or magnetic field fluctuations in the scan room can disrupt image quality.</li> </ul> "
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Hardware instability: This could be caused by issues with the gradient coils, RF system, or image acquisition system.</li> <li>Software glitches: Bugs or errors in the MRI software can lead to inconsistencies in image acquisition.</li> <li>Patient motion: Movement during the scan can cause artifacts and inconsistencies in the final image.</li> <li>Environmental factors: Excessive vibration or magnetic field fluctuations in the scan room can disrupt image quality.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":8,
         "error":"Minor8",
         "title":"Slight gradient instability",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can be caused by excessive use, high ambient temperature, or insufficient cooling.</li> <li>Loose connections: Faulty connections within the gradient system can cause instability.</li> <li>Gradient hardware issues: Malfunctioning gradient hardware components can lead to instability.</li> </ul> ",
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can be caused by excessive use, high ambient temperature, or insufficient cooling.</li> <li>Loose connections: Faulty connections within the gradient system can cause instability.</li> <li>Gradient hardware issues: Malfunctioning gradient hardware components can lead to instability.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
         "videoURL": "https://www.youtube.com/embed/XeFjNCzUv38?si=tNV4IFOFa5u09H9R&amp;start=11&amp;autoplay=1"
     },
     {
         "id":9,
         "error":"Minor9",
         "title":"Potential Image Artifacts",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Coil sensitivity variations</li> <li>Motion artifacts due to patient movement</li> <li>Susceptibility artifacts due to implants or air-tissue interfaces</li> <li>Chemical shift artifacts due to different tissue types</li> <li>Flow artifacts due to blood flow</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Coil sensitivity variations</li> <li>Motion artifacts due to patient movement</li> <li>Susceptibility artifacts due to implants or air-tissue interfaces</li> <li>Chemical shift artifacts due to different tissue types</li> <li>Flow artifacts due to blood flow</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":10,
         "error":"Minor10",
         "title":"Minor Frequency drift and Inconsistent TE",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Temperature instability within the scanner room or magnet.</li> <li>Imprecision in shimming procedures.</li> <li>Drift in magnet field strength.</li> <li>Hardware malfunction within the scanner system.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Temperature instability within the scanner room or magnet.</li> <li>Imprecision in shimming procedures.</li> <li>Drift in magnet field strength.</li> <li>Hardware malfunction within the scanner system.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":1
     },
     {
         "id":11,
         "error":"Minor11",
         "title":"Slight increase in Cryo boiloff",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Increased workload on the cryogenic system due to a longer scan session or multiple scans in quick succession.</li> <li>Ambient temperature exceeding recommended limits.</li> <li>Inefficient transfer of helium gas within the cryostat.</li> <li>Malfunctioning of the cryogenic control system.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Increased workload on the cryogenic system due to a longer scan session or multiple scans in quick succession.</li> <li>Ambient temperature exceeding recommended limits.</li> <li>Inefficient transfer of helium gas within the cryostat.</li> <li>Malfunctioning of the cryogenic control system.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":1
     },
     {
         "id":12,
         "error":"Minor12",
         "title":"Slight gradient instability and longer TR",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can cause instability in the magnetic field gradients, leading to artifacts and longer scan times.</li> <li>System software glitch: A temporary issue with the MRI software could be causing the gradient instability.</li> <li>Hardware malfunction: A faulty gradient coil or related component could be malfunctioning.</li> </ul>",
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can cause instability in the magnetic field gradients, leading to artifacts and longer scan times.</li> <li>System software glitch: A temporary issue with the MRI software could be causing the gradient instability.</li> <li>Hardware malfunction: A faulty gradient coil or related component could be malfunctioning.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
         "videoURL": "https://www.youtube.com/embed/XeFjNCzUv38?si=tNV4IFOFa5u09H9R&amp;start=11&amp;autoplay=1"
     },
     {
         "id":1,
         "error":"Medium1",
         "title":"Prolonged Scan Time",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Inefficient scan sequence selection for the examination being performed.</li> <li>Hardware malfunctions within the scanner that can lead to extended reconstruction times.</li> <li>Issues with the patient setup or examination protocol that can result in rescans.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Inefficient scan sequence selection for the examination being performed.</li> <li>Hardware malfunctions within the scanner that can lead to extended reconstruction times.</li> <li>Issues with the patient setup or examination protocol that can result in rescans.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":2,
         "error":"Medium2",
         "title":"Frequency Shift and Image Artifacts",
-        "desc":"<p>Based on the provided data, the maintenance code identified for the MRI scan is <strong>Medium2: Frequency Shift and Image Artifacts</strong>.</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Magnetic field instability: This can be caused by fluctuations in the power supply, nearby equipment, or issues with the magnet itself.</li> <li>Gradient coil problems: Faulty gradient coils can introduce frequency shifts and distort the image.</li> <li>RF system malfunction: Issues with the RF system can lead to frequency inaccuracies and artifacts in the image.</li> <li>Patient motion: Movement during the scan can cause artifacts and frequency shifts.</li> </ul>"
+        "desc":"<p>Based on the provided data, the maintenance code identified for the MRI scan is <strong>Medium2: Frequency Shift and Image Artifacts</strong>.</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Magnetic field instability: This can be caused by fluctuations in the power supply, nearby equipment, or issues with the magnet itself.</li> <li>Gradient coil problems: Faulty gradient coils can introduce frequency shifts and distort the image.</li> <li>RF system malfunction: Issues with the RF system can lead to frequency inaccuracies and artifacts in the image.</li> <li>Patient motion: Movement during the scan can cause artifacts and frequency shifts.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":3,
         "error":"Medium3",
         "title":"Gradient Instability",
-        "desc":"<p>Based on the provided data, the MRI scan seems to have no errors (error_code: No Error) but a maintenance code of Medium3 (Gradient Instability) is recommended.</p> <p><strong>Possible Causes (for Medium3: Gradient Instability):</strong></p> <ul type='disc'> <li>Hardware issues with gradient coils</li> <li>Loose connections within the gradient subsystem</li> <li>Software glitches</li> </ul>"
+        "desc":" <p><strong>Possible Causes (Gradient Instability):</strong></p> <ul type='disc'> <li>Hardware issues with gradient coils</li> <li>Loose connections within the gradient subsystem</li> <li>Software glitches</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":3
     },
     {
         "id":4,
         "error":"Medium4",
         "title":"System Highly Overheating",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Blockage in the chilled water inlet or outlet lines.</li> <li>Reduced cooling water flow rate.</li> <li>Malfunctioning chilled water pump.</li> <li>Failure of a cooling system component.</li> <li>Excessive ambient room temperature.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Blockage in the chilled water inlet or outlet lines.</li> <li>Reduced cooling water flow rate.</li> <li>Malfunctioning chilled water pump.</li> <li>Failure of a cooling system component.</li> <li>Excessive ambient room temperature.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":3
     },
     {
         "id":5,
         "error":"Medium5",
         "title":"Inconsistent Imaging continuously",
-        "desc":"<p>Based on the maintenance code 'Medium5' and the corresponding description in the provided data, here's a breakdown of possible causes, actions to avoid future occurrences, and additional observations:</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Hardware:</strong></li> <ul type='circle'> <li>Malfunctioning gradient coils</li> <li>Instability in the main magnetic field</li> <li>Faulty RF system components</li> </ul> <li><strong>Software:</strong></li> <ul type='circle'> <li>Software bugs or glitches in the pulse sequence</li> <li>Image reconstruction errors</li> </ul> <li><strong>Environmental:</strong></li> <ul type='circle'> <li>Excessive vibrations in the scanner room</li> </ul> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Hardware:</strong></li> <ul type='circle'> <li>Malfunctioning gradient coils</li> <li>Instability in the main magnetic field</li> <li>Faulty RF system components</li> </ul> <li><strong>Software:</strong></li> <ul type='circle'> <li>Software bugs or glitches in the pulse sequence</li> <li>Image reconstruction errors</li> </ul> <li><strong>Environmental:</strong></li> <ul type='circle'> <li>Excessive vibrations in the scanner room</li> </ul> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
+        "dataDisplayType":1
     },
     {
         "id":6,
         "error":"Medium6",
         "title":"System Overheating and Gradient Issues",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Faulty chiller system or failing chilled water supply</li> <li>Blocked air filters within the MRI machine</li> <li>Internal component malfunction causing excessive heat generation</li> <li>Improper room ventilation leading to heat build-up</li> </ul>",
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Faulty chiller system or failing chilled water supply</li> <li>Blocked air filters within the MRI machine</li> <li>Internal component malfunction causing excessive heat generation</li> <li>Improper room ventilation leading to heat build-up</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
         "videoURL": "https://www.youtube.com/embed/XeFjNCzUv38?si=tNV4IFOFa5u09H9R&amp;start=11&amp;autoplay=1"
     },
     {
         "id":7,
         "error":"Medium7",
         "title":"Prolonged Scan Time and Inconsistent Contrast",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Scan Sequence Optimization:</strong> The chosen scan sequence might not be optimized for efficiency, leading to extended scan times.</li> <li><strong>Hardware Issues:</strong> Faulty or aging gradient coils, RF amplifiers, or cryogenic systems can contribute to prolonged scan times and inconsistencies in image contrast.</li> <li><strong>Injector Issues:</strong> Malfunctioning contrast injectors can cause delays and inconsistencies in contrast delivery, affecting image quality.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Scan Sequence Optimization:</strong> The chosen scan sequence might not be optimized for efficiency, leading to extended scan times.</li> <li><strong>Hardware Issues:</strong> Faulty or aging gradient coils, RF amplifiers, or cryogenic systems can contribute to prolonged scan times and inconsistencies in image contrast.</li> <li><strong>Injector Issues:</strong> Malfunctioning contrast injectors can cause delays and inconsistencies in contrast delivery, affecting image quality.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":8,
         "error":"Medium8",
         "title":"Frequency Drift and Image Artifacts",
-        "desc":"<p>Based on the provided data, the maintenance code identified for the MRI machine is <strong>Medium8: Frequency Drift and Image Artifacts</strong>.</p> <p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Magnetic field instability:</strong> Fluctuations in the main magnetic field can cause frequency drift and distort the image.</li> <li><strong>Gradient system issues:</strong> Problems with the gradient coils responsible for spatial encoding can lead to frequency shifts and artifacts.</li> <li><strong>Clock drift:</strong> Inaccurate timing signals can cause inconsistencies in data acquisition, resulting in artifacts.</li> <li><strong>RF system instability:</strong> Instability in the radiofrequency (RF) system used for signal excitation can lead to frequency drift and image quality issues.</li> </ul> "
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li><strong>Magnetic field instability:</strong> Fluctuations in the main magnetic field can cause frequency drift and distort the image.</li> <li><strong>Gradient system issues:</strong> Problems with the gradient coils responsible for spatial encoding can lead to frequency shifts and artifacts.</li> <li><strong>Clock drift:</strong> Inaccurate timing signals can cause inconsistencies in data acquisition, resulting in artifacts.</li> <li><strong>RF system instability:</strong> Instability in the radiofrequency (RF) system used for signal excitation can lead to frequency drift and image quality issues.</li> </ul> <p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":9,
         "error":"Medium9",
         "title":"Gradient Instability and Low SNR (Signal-to-Noise Ratio)",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can cause instability in the magnetic field gradients, leading to artifacts and reduced SNR.</li> <li>RF (radiofrequency) system malfunction: Issues with the RF system can contribute to lower signal reception and SNR.</li> <li>Patient motion: Movement during the scan can cause artifacts and reduce SNR.</li> <li>Hardware issues: Faulty gradient coils or other hardware components can lead to these problems.</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Gradient coil heating: This can cause instability in the magnetic field gradients, leading to artifacts and reduced SNR.</li> <li>RF (radiofrequency) system malfunction: Issues with the RF system can contribute to lower signal reception and SNR.</li> <li>Patient motion: Movement during the scan can cause artifacts and reduce SNR.</li> <li>Hardware issues: Faulty gradient coils or other hardware components can lead to these problems.</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":10,
         "error":"Medium10",
         "title":"Cryogenic system failure and Overheating",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Loss of coolant flow</li> <li>Blockage in the cryogenic system</li> <li>Depletion of cryogen (helium)</li> <li>Malfunction of the cryogenic compressor</li> <li>Faulty temperature sensor</li> </ul>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Loss of coolant flow</li> <li>Blockage in the cryogenic system</li> <li>Depletion of cryogen (helium)</li> <li>Malfunction of the cryogenic compressor</li> <li>Faulty temperature sensor</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":11,
         "error":"Medium11",
-        "title":"Cryogenic system failure and Overheating",
-        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Low coolant level in the cryogenic system</li> <li>Blockage in the cryogenic system lines</li> <li>Faulty cryogenic compressor</li> <li>Issues with the dewar venting system</li> </ul>",
+        "title":"Uneven Imaging and Gradient Issues",
+        "desc":"<p><strong>Possible Causes:</strong></p> <ul type='disc'> <li>Low coolant level in the cryogenic system</li> <li>Blockage in the cryogenic system lines</li> <li>Faulty cryogenic compressor</li> <li>Issues with the dewar venting system</li> </ul><p><strong>Step by step instructions to address above mentioned causes:</strong></p>",
         "videoURL": "https://www.youtube.com/embed/XeFjNCzUv38?si=tNV4IFOFa5u09H9R&amp;start=11&amp;autoplay=1"
     },
     {
         "id":12,
         "error":"Medium12",
         "title":"Prolonged scan time and low SNR",
-        "desc":"<p><strong>Possible Causes:</strong></p> <p>·       <strong>Scan Sequence Inefficiency:</strong> The chosen scan sequence might not be optimized for the desired image quality at the shortest possible acquisition time.</p> <p>·       <strong>Hardware Malfunction:</strong> Issues with the RF system, gradient coils, or receiver coils can lead to prolonged scan times and reduced signal-to-noise ratio (SNR).</p> <p>·       <strong>Patient Factors:</strong> Excessive patient motion during the scan can cause artifacts and necessitate rescans, leading to prolonged scan times.</p>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <p>·       <strong>Scan Sequence Inefficiency:</strong> The chosen scan sequence might not be optimized for the desired image quality at the shortest possible acquisition time.</p> <p>·       <strong>Hardware Malfunction:</strong> Issues with the RF system, gradient coils, or receiver coils can lead to prolonged scan times and reduced signal-to-noise ratio (SNR).</p> <p>·       <strong>Patient Factors:</strong> Excessive patient motion during the scan can cause artifacts and necessitate rescans, leading to prolonged scan times.</p><p><strong>Step by step instructions to address above mentioned causes:</strong></p>"
     },
     {
         "id":13,
         "error":"Medium13",
         "title":"Gradient Instability and Frequency Shift",
-        "desc":"<p><strong>Possible Causes:</strong></p> <p>·       Gradient system hardware malfunction</p> <p>·       Shimming issue</p> <p>·       Fringe field effects from nearby objects</p> <p>·       Software bugs</p>"
+        "desc":"<p><strong>Possible Causes:</strong></p> <p>·       Gradient system hardware malfunction</p> <p>·       Shimming issue</p> <p>·       Fringe field effects from nearby objects</p> <p>·       Software bugs</p> <p><strong>Step by step instructions to address above mentioned causes:</strong></p> "
     }
 ]

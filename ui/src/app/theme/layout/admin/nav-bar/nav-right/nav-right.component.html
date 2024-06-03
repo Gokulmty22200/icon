@@ -354,6 +354,22 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body pm-body">
+    @if(selectedMinor.dataDisplayType){
+      <div>
+        <p><strong>Current Chiller Water Inlet and Outlet to MRI Cooling System:</strong></p>        
+        <p>Max of Chilled Water Inlet temp: <strong> {{selectedMinor.max_water_inlet_temp}} &deg;</strong>C</p>
+        <p>Max of Chilled Water Outlet temp: <strong> {{selectedMinor.max_water_outlet_temp}} &deg;</strong>C</p> 
+        @if(selectedMinor.dataDisplayType !== 2){
+        <p>Min of Water Pressure: <strong> {{selectedMinor.min_water_pressure}} </strong></p>
+        }
+        @if(selectedMinor.dataDisplayType === 1){
+        <p><strong>IAQ (Indoor Air Quality Performance):</strong></p>
+        <p>Max of temperature: <strong> {{selectedMinor.max_temperature}} &deg;C</strong></p>
+        <p>Max of Relative Humidity: <strong> {{selectedMinor.max_rel_humidity}} </strong></p>
+        }
+      </div>
+    }
+
     <div [innerHTML]="selectedMinor.desc">.</div>
     <hr class="my-4 seperation bg-secondary">
     @if(selectedMinor.steps){
