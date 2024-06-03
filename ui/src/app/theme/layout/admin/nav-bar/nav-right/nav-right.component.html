@@ -360,12 +360,12 @@
         <p>Max of Chilled Water Inlet temp: <strong> {{selectedMinor.max_water_inlet_temp}} &deg;</strong>C</p>
         <p>Max of Chilled Water Outlet temp: <strong> {{selectedMinor.max_water_outlet_temp}} &deg;</strong>C</p> 
         @if(selectedMinor.dataDisplayType !== 2){
-        <p>Min of Water Pressure: <strong> {{selectedMinor.min_water_pressure}} </strong></p>
+        <p>Min of Water Pressure: <strong> {{selectedMinor.min_water_pressure}} </strong>bar</p>
         }
         @if(selectedMinor.dataDisplayType === 1){
         <p><strong>IAQ (Indoor Air Quality Performance):</strong></p>
         <p>Max of temperature: <strong> {{selectedMinor.max_temperature}} &deg;C</strong></p>
-        <p>Max of Relative Humidity: <strong> {{selectedMinor.max_rel_humidity}} </strong></p>
+        <p>Max of Relative Humidity: <strong> {{selectedMinor.max_rel_humidity}} %</strong></p>
         }
       </div>
     }

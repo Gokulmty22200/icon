@@ -157,12 +157,11 @@ export class MriPerformanceComponent implements OnInit{
       "error_code": tableData.machine_data.error_code,
       "slice_thickness": tableData.machine_data.slice_thickness,
       "scan_minutes": (tableData.machine_data.scan_time / 60).toFixed(2),
-      "mri_inlet_temp": tableData.chiller_data.max_water_inlet_temp,
-      "mri_outlet_temp": tableData.chiller_data.max_water_outlet_temp,
-      "mri_water_pressure": tableData.chiller_data.min_water_pressure,
-      "max_iaq_temp": tableData.iaq_data.max_temperature,
-      "relative_iaq_humidity": tableData.iaq_data.max_rel_humidity
-
+      "mri_inlet_temp": parseFloat(tableData.chiller_data.max_water_inlet_temp).toFixed(2),
+      "mri_outlet_temp": parseFloat(tableData.chiller_data.max_water_outlet_temp).toFixed(2),
+      "mri_water_pressure": parseFloat(tableData.chiller_data.min_water_pressure).toFixed(3),
+      "max_iaq_temp": parseFloat(tableData.iaq_data.max_temperature).toFixed(2),
+      "relative_iaq_humidity": parseFloat(tableData.iaq_data.max_rel_humidity).toFixed(2)
     };
     let replacedTitle;
     let replacedText;
