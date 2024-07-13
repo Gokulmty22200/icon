@@ -18,11 +18,11 @@ export default class LoginComponent implements OnInit {
   allowedUsers = [
     {
       userName:'mriadmin',
-      password:'admin'
+      password:'(*A4m!#@n99'
     },
     {
       userName:'mriuser',
-      password:'user'
+      password:'user@mri2024'
     },
   ];
   
