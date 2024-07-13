@@ -22,7 +22,7 @@ export default class LoginComponent implements OnInit {
     },
     {
       userName:'mriuser',
-      password:'user@mri2024'
+      password:'(*U$3R!#@n99'
     },
   ];
   
